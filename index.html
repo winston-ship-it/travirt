@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAVIRT</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at center, #182d55 0%, #071020 45%, #02050b 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.subtitle {
+    color: #8eaeff;
+    letter-spacing: 5px;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 64px;
+    letter-spacing: 10px;
+    margin: 10px 0;
+}
+
+#orb {
+    width: 180px;
+    height: 180px;
+    margin: 45px auto 30px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%,
+        white 0%,
+        #9ec5ff 8%,
+        #367cff 35%,
+        #123078 65%,
+        #020714 100%);
+    box-shadow:
+        0 0 30px #448aff,
+        0 0 70px #2467ff,
+        0 0 130px #1645b5;
+    transition: 0.3s;
+}
+
+#orb.listening {
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.12);
+    }
+}
+
+#status {
+    font-size: 20px;
+    color: #b9cbff;
+    margin: 20px;
+}
+
+button {
+    background: #2467ff;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 6px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4785ff;
+}
+
+#output {
+    margin-top: 25px;
+    padding: 20px;
+    min-height: 80px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 20px;
+}
+
+.commands {
+    margin-top: 45px;
+    padding: 25px;
+    text-align: left;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.25);
+}
+
+.commands h2 {
+    text-align: center;
+}
+
+.commands p {
+    margin: 10px;
+    color: #c8d6ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="subtitle">
+        PERSONAL DIGITAL ASSISTANT
+    </div>
+
+    <h1>TRAVIRT</h1>
+
+    <div id="orb"></div>
+
+    <div id="status">
+        Travirt is ready.
+    </div>
+
+    <button onclick="startListening()">
+        🎤 Talk to Travirt
+    </button>
+
+    <button onclick="stopListening()">
+        ⏹ Stop
+    </button>
+
+    <div id="output">
+        Say a command...
+    </div>
+
+    <div class="commands">
+
+        <h2>Try saying:</h2>
+
+        <p>🎤 “Travirt, search Journey Tracker”</p>
+        <p>🌐 “Travirt, open YouTube”</p>
+        <p>📜 “Travirt, scroll down”</p>
+        <p>⬆️ “Travirt, scroll up”</p>
+        <p>⬇️ “Travirt, go to the bottom”</p>
+        <p>🔝 “Travirt, go to the top”</p>
+        <p>🕐 “Travirt, what time is it?”</p>
+        <p>❓ “Travirt, help”</p>
+
+    </div>
+
+</div>
+
+<script>
+
+let recognition;
+
+const statusText = document.getElementById("status");
+const output = document.getElementById("output");
+const orb = document.getElementById("orb");
+
+
+if ("webkitSpeechRecognition" in window) {
+
+    recognition = new webkitSpeechRecognition();
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+
+
+    recognition.onstart = function() {
+
+        statusText.innerText = "🎤 Listening...";
+
+        orb.classList.add("listening");
+
+    };
+
+
+    recognition.onend = function() {
+
+        statusText.innerText = "Travirt is ready.";
+
+        orb.classList.remove("listening");
+
+    };
+
+
+    recognition.onerror = function() {
+
+        statusText.innerText =
+            "I couldn't hear that.";
+
+        orb.classList.remove("listening");
+
+    };
+
+
+    recognition.onresult = function(event) {
+
+        const command =
+            event.results[0][0].transcript.toLowerCase();
+
+        output.innerText =
+            "You said: " + command;
+
+        processCommand(command);
+
+    };
+
+}
+
+
+function startListening() {
+
+    if (recognition) {
+
+        recognition.start();
+
+    } else {
+
+        speak(
+            "Voice recognition is not supported in this browser."
+        );
+
+    }
+
+}
+
+
+function stopListening() {
+
+    if (recognition) {
+
+        recognition.stop();
+
+    }
+
+}
+
+
+function speak(text) {
+
+    output.innerText = text;
+
+    const speech =
+        new SpeechSynthesisUtterance(text);
+
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.cancel();
+
+    window.speechSynthesis.speak(speech);
+
+}
+
+
+function processCommand(command) {
+
+
+    /* SEARCH */
+
+    if (command.includes("search")) {
+
+        let search =
+            command
+            .replace("travirt", "")
+            .replace("search", "")
+            .trim();
+
+        if (!search) {
+
+            speak(
+                "What would you like me to search for?"
+            );
+
+            return;
+
+        }
+
+        speak(
+            "Searching for " + search
+        );
+
+        window.open(
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(search),
+            "_blank"
+        );
+
+        return;
+
+    }
+
+
+    /* YOUTUBE */
+
+    if (command.includes("open youtube")) {
+
+        speak("Opening YouTube.");
+
+        window.open(
+            "https://www.youtube.com/",
+            "_blank"
+        );
+
+        return;
+
+    }
+
+
+    /* SCROLL DOWN */
+
+    if (command.includes("scroll down")) {
+
+        window.scrollBy({
+            top: 700,
+            behavior: "smooth"
+        });
+
+        speak("Scrolling down.");
+
+        return;
+
+    }
+
+
+    /* SCROLL UP */
+
+    if (command.includes("scroll up")) {
+
+        window.scrollBy({
+            top: -700,
+            behavior: "smooth"
+        });
+
+        speak("Scrolling up.");
+
+        return;
+
+    }
+
+
+    /* BOTTOM */
+
+    if (command.includes("bottom")) {
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+
+        speak("Going to the bottom.");
+
+        return;
+
+    }
+
+
+    /* TOP */
+
+    if (command.includes("top")) {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        speak("Going to the top.");
+
+        return;
+
+    }
+
+
+    /* TIME */
+
+    if (command.includes("time")) {
+
+        const now = new Date();
+
+        const time =
+            now.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            });
+
+        speak(
+            "The time is " + time
+        );
+
+        return;
+
+    }
+
+
+    /* HELP */
+
+    if (command.includes("help")) {
+
+        speak(
+            "You can ask me to search, open YouTube, scroll, go to the top, go to the bottom, or tell you the time."
+        );
+
+        return;
+
+    }
+
+
+    /* UNKNOWN COMMAND */
+
+    speak(
+        "I heard you, but I don't know how to do that yet."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
