@@ -4,259 +4,230 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Travis</title>
+<title>Travirt</title>
 
 <style>
-    * {
-        box-sizing: border-box;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+        radial-gradient(circle at center, #12345f 0%, #06101f 45%, #02050a 100%);
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 52px;
+    margin: 5px 0;
+    text-shadow:
+        0 0 15px #00aaff,
+        0 0 35px #0077ff;
+}
+
+.subtitle {
+    color: #8fdcff;
+    margin-bottom: 20px;
+}
+
+.orb {
+    width: 180px;
+    height: 180px;
+    margin: 25px auto;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            white 0%,
+            #70dcff 15%,
+            #087cff 45%,
+            #031a4d 75%
+        );
+
+    box-shadow:
+        0 0 25px #00aaff,
+        0 0 60px #0077ff,
+        0 0 110px #004cff;
+
+    animation: pulse 2s infinite alternate;
+}
+
+.orb.listening {
+    animation: listening .8s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
     }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: Arial, sans-serif;
-        background:
-            radial-gradient(circle at center, #102b55 0%, #050b18 45%, #02040a 100%);
-        color: white;
-        overflow-x: hidden;
+    to {
+        transform: scale(1.05);
     }
+}
 
-    .container {
-        width: min(1100px, 94%);
-        margin: auto;
-        padding: 25px 0 50px;
-    }
-
-    header {
-        text-align: center;
-        margin-bottom: 25px;
-    }
-
-    header h1 {
-        font-size: 48px;
-        margin: 5px 0;
-        letter-spacing: 4px;
-        text-shadow: 0 0 20px #39aaff;
-    }
-
-    header p {
-        color: #a9cfff;
-        margin-top: 5px;
-    }
-
-    .orb-area {
-        display: flex;
-        justify-content: center;
-        margin: 25px 0;
-    }
-
-    .orb {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        background:
-            radial-gradient(circle at 35% 30%, white 0%, #69d5ff 8%, #198cff 35%, #102b85 65%, #03091b 100%);
+@keyframes listening {
+    from {
+        transform: scale(1);
         box-shadow:
-            0 0 25px #1aa7ff,
-            0 0 60px #1479ff,
-            0 0 110px rgba(20, 100, 255, 0.5);
-        animation: pulse 3s infinite ease-in-out;
-        transition: 0.3s;
+            0 0 30px #00aaff,
+            0 0 70px #0077ff,
+            0 0 120px #004cff;
     }
 
-    .orb.listening {
-        animation: listening 0.8s infinite alternate;
+    to {
+        transform: scale(1.12);
         box-shadow:
-            0 0 35px #55ddff,
-            0 0 90px #1479ff,
-            0 0 150px rgba(20, 100, 255, 0.8);
+            0 0 50px #00ffff,
+            0 0 100px #0088ff,
+            0 0 170px #0055ff;
     }
+}
 
-    .orb.speaking {
-        animation: speaking 0.35s infinite alternate;
-    }
+.status {
+    min-height: 30px;
+    margin: 15px;
+    font-size: 20px;
+    color: #73dcff;
+    font-weight: bold;
+}
 
-    @keyframes pulse {
-        0%,100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
+.heard {
+    min-height: 35px;
+    color: #ddd;
+    margin: 10px auto 20px;
+}
 
-    @keyframes listening {
-        from {
-            transform: scale(1);
-        }
-        to {
-            transform: scale(1.13);
-        }
-    }
+button {
+    padding: 12px 18px;
+    margin: 5px;
 
-    @keyframes speaking {
-        from {
-            transform: scale(1.03);
-        }
-        to {
-            transform: scale(1.16);
-        }
-    }
+    border-radius: 10px;
+    border: 1px solid #159fff;
 
-    .status {
-        text-align: center;
-        color: #7fd9ff;
-        font-size: 18px;
-        margin: 15px;
-        min-height: 25px;
-    }
+    background: #073b78;
+    color: white;
 
-    .mode {
-        text-align: center;
-        margin: 10px auto 20px;
-        padding: 10px 15px;
-        width: fit-content;
-        border: 1px solid #2466a8;
-        border-radius: 20px;
-        background: rgba(10, 30, 65, 0.7);
-        color: #a9dcff;
-    }
+    font-size: 15px;
+    cursor: pointer;
+}
 
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-        gap: 12px;
-        margin-bottom: 20px;
-    }
+button:hover {
+    background: #0b5cae;
+    box-shadow: 0 0 15px #008cff;
+}
 
-    button {
-        border: 1px solid #2377bd;
-        border-radius: 12px;
-        padding: 14px;
-        background: linear-gradient(180deg, #123b68, #081b35);
-        color: white;
-        font-size: 15px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+button.danger {
+    background: #631414;
+    border-color: #ff5555;
+}
 
-    button:hover {
-        transform: translateY(-2px);
-        border-color: #59c8ff;
-        box-shadow: 0 0 18px rgba(40, 160, 255, 0.4);
-    }
+button.danger:hover {
+    background: #8b1919;
+}
 
-    button.danger {
-        border-color: #b83d55;
-        background: linear-gradient(180deg, #591b2a, #270b13);
-    }
+.panel {
+    margin-top: 25px;
+    padding: 20px;
 
-    .panel {
-        background: rgba(5, 16, 34, 0.88);
-        border: 1px solid #194d7e;
-        border-radius: 16px;
-        padding: 20px;
-        margin-top: 18px;
-        box-shadow: 0 0 25px rgba(0,0,0,0.3);
-    }
+    text-align: left;
 
-    .panel h2 {
-        margin-top: 0;
-        color: #6ecfff;
-    }
+    background: rgba(3, 17, 36, .9);
 
-    input, select {
-        width: 100%;
-        padding: 13px;
-        margin: 7px 0;
-        border-radius: 10px;
-        border: 1px solid #285c8d;
-        background: #071426;
-        color: white;
-        font-size: 15px;
-        outline: none;
-    }
+    border: 1px solid #146cb5;
+    border-radius: 15px;
 
-    input:focus, select:focus {
-        border-color: #55caff;
-        box-shadow: 0 0 10px rgba(60,180,255,0.25);
-    }
+    box-shadow:
+        0 0 20px rgba(0, 136, 255, .15);
+}
 
-    .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
+.panel h2 {
+    margin-top: 0;
+    color: #68dcff;
+}
 
-    .history {
-        max-height: 280px;
-        overflow-y: auto;
-        background: #020914;
-        border-radius: 10px;
-        padding: 10px;
-    }
+.panel label {
+    display: block;
+    padding: 8px;
+}
 
-    .history-item {
-        padding: 9px;
-        border-bottom: 1px solid #15314d;
-        color: #b7d8ef;
-    }
+input[type="text"] {
+    width: min(700px, 90%);
 
-    .history-item:last-child {
-        border-bottom: none;
-    }
+    padding: 13px;
 
-    .small {
-        color: #89a9c5;
-        font-size: 13px;
-        line-height: 1.5;
-    }
+    background: #020b18;
+    color: white;
 
-    .custom-command {
-        border: 1px solid #194d7e;
-        border-radius: 10px;
-        padding: 12px;
-        margin-top: 10px;
-        background: rgba(8, 26, 48, 0.8);
-    }
+    border: 1px solid #168fe0;
+    border-radius: 9px;
 
-    .custom-command strong {
-        color: #69d4ff;
-    }
+    font-size: 16px;
+}
 
-    .online {
-        color: #62e6a8;
-    }
+select {
+    padding: 8px;
 
-    .offline {
-        color: #ff7d91;
-    }
+    background: #07182c;
+    color: white;
 
-    .checkbox-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 10px 0;
-    }
+    border: 1px solid #168fe0;
+    border-radius: 7px;
+}
 
-    .checkbox-row input {
-        width: auto;
-    }
+input[type="range"] {
+    width: 220px;
+}
 
-    @media(max-width: 650px) {
-        header h1 {
-            font-size: 35px;
-        }
+.hidden {
+    display: none;
+}
 
-        .row {
-            grid-template-columns: 1fr;
-        }
+.mode {
+    display: inline-block;
 
-        .orb {
-            width: 140px;
-            height: 140px;
-        }
-    }
+    padding: 7px 12px;
+    margin: 3px;
+
+    border-radius: 20px;
+
+    background: #092e58;
+    color: #9cddff;
+}
+
+.history {
+    max-height: 250px;
+    overflow-y: auto;
+
+    background: #020812;
+
+    padding: 10px;
+
+    border-radius: 8px;
+}
+
+.history div {
+    padding: 7px;
+
+    border-bottom: 1px solid #17334e;
+}
+
+.small {
+    color: #8da8bd;
+    font-size: 13px;
+}
 </style>
 </head>
 
@@ -264,242 +235,310 @@
 
 <div class="container">
 
-    <header>
-        <h1 id="titleName">TRAVIS</h1>
-        <p>Your personal digital assistant</p>
-    </header>
+<h1>TRAVIRT</h1>
+
+<div class="subtitle">
+Your personal digital assistant
+</div>
+
+<div id="orb" class="orb"></div>
+
+<div id="status" class="status">
+READY
+</div>
+
+<div id="heard" class="heard">
+Press Listen and speak to Travirt.
+</div>
+
+<button onclick="startListening()">
+🎤 Listen
+</button>
+
+<button
+    class="danger"
+    onclick="stopListening()"
+>
+⏹ Stop
+</button>
+
+<button onclick="togglePanel('abilities')">
+⚙️ Abilities
+</button>
+
+<button onclick="togglePanel('settings')">
+🔊 Voice Settings
+</button>
+
+<button onclick="togglePanel('custom')">
+🔗 Custom Commands
+</button>
+
+<button onclick="clearHistory()">
+🗑 Clear History
+</button>
+
+<br><br>
+
+<input
+    id="commandInput"
+    type="text"
+    placeholder="Type a command to Travirt..."
+    onkeydown="if(event.key==='Enter') sendTypedCommand()"
+>
+
+<button onclick="sendTypedCommand()">
+Send
+</button>
+
+
+<!-- ABILITIES -->
+
+<div
+    id="abilities"
+    class="panel hidden"
+>
+
+<h2>⚡ Abilities</h2>
+
+<label>
+<input
+    type="checkbox"
+    id="voiceAbility"
+    checked
+>
+🎤 Voice Commands
+</label>
+
+<label>
+<input
+    type="checkbox"
+    id="searchAbility"
+    checked
+>
+🔎 Web Search
+</label>
+
+<label>
+<input
+    type="checkbox"
+    id="openAbility"
+    checked
+>
+🌐 Open Websites
+</label>
+
+<label>
+<input
+    type="checkbox"
+    id="scrollAbility"
+    checked
+>
+📜 Scroll
+</label>
 
-    <div class="orb-area">
-        <div id="orb" class="orb"></div>
-    </div>
+<label>
+<input
+    type="checkbox"
+    id="speakAbility"
+    checked
+>
+🔊 Speak Responses
+</label>
 
-    <div id="status" class="status">
-        Ready.
-    </div>
+<label>
+<input
+    type="checkbox"
+    id="wakeAbility"
+    checked
+>
+🗣️ Wake Word
+</label>
 
-    <div class="mode">
-        Mode: <strong id="modeText">Normal</strong>
-    </div>
+<p class="small">
+Wake Word means Travirt only accepts voice commands when its name is spoken.
+</p>
 
-    <div class="buttons">
+</div>
 
-        <button onclick="startContinuousListening()">
-            🎙️ Start Listening
-        </button>
 
-        <button class="danger" onclick="stopListening(true)">
-            🛑 Stop
-        </button>
+<!-- VOICE SETTINGS -->
 
-        <button onclick="setMode('Ask')">
-            🧠 Ask Mode
-        </button>
+<div
+    id="settings"
+    class="panel hidden"
+>
 
-        <button onclick="setMode('Study')">
-            📚 Study Mode
-        </button>
+<h2>🔊 Voice Settings</h2>
 
-        <button onclick="setMode('Research')">
-            🌎 Research Mode
-        </button>
+<label>
+Voice:
 
-        <button onclick="schoolMode()">
-            🏫 School Mode
-        </button>
+<select id="voiceSelect"></select>
 
-        <button onclick="togglePanel('settingsPanel')">
-            ⚙️ Settings
-        </button>
-
-        <button onclick="togglePanel('commandsPanel')">
-            🔗 Custom Commands
-        </button>
-
-        <button onclick="togglePanel('historyPanel')">
-            📜 History
-        </button>
-
-        <button onclick="clearHistory()">
-            🗑️ Clear History
-        </button>
+</label>
 
-    </div>
+<br>
 
-    <!-- COMMAND BOX -->
+<label>
+Volume:
 
-    <div class="panel">
-        <h2>⌨️ Talk to Travis</h2>
-
-        <input
-            id="commandInput"
-            type="text"
-            placeholder="Type something like: Travis, search Minecraft"
-            onkeydown="if(event.key === 'Enter') runTypedCommand()"
-        >
-
-        <button onclick="runTypedCommand()">
-            Send to Travis
-        </button>
-    </div>
+<input
+    type="range"
+    id="volume"
+    min="0"
+    max="1"
+    step=".05"
+    value="1"
+>
 
-    <!-- SETTINGS -->
+</label>
 
-    <div class="panel" id="settingsPanel" style="display:none;">
+<label>
+Speed:
 
-        <h2>⚙️ Travis Settings</h2>
+<input
+    type="range"
+    id="rate"
+    min=".5"
+    max="2"
+    step=".05"
+    value="1"
+>
 
-        <label>Your assistant's name</label>
+</label>
 
-        <input
-            id="nameInput"
-            placeholder="Travis"
-        >
+<label>
+Pitch:
 
-        <button onclick="saveName()">
-            💾 Save Name
-        </button>
+<input
+    type="range"
+    id="pitch"
+    min=".5"
+    max="2"
+    step=".05"
+    value="1"
+>
 
-        <p class="small">
-            After changing the name, you can use the new name as the wake word.
-            For example, if you change it to Nova, say "Nova, search Minecraft."
-        </p>
+</label>
 
-        <hr>
-
-        <h2>🔊 Voice</h2>
-
-        <label>Voice</label>
-
-        <select id="voiceSelect"></select>
+<button onclick="testVoice()">
+🔊 Test Voice
+</button>
 
-        <div class="row">
+</div>
 
-            <div>
-                <label>Volume</label>
-                <input
-                    id="volume"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value="1"
-                >
-            </div>
 
-            <div>
-                <label>Speed</label>
-                <input
-                    id="rate"
-                    type="range"
-                    min="0.5"
-                    max="2"
-                    step="0.05"
-                    value="1"
-                >
-            </div>
+<!-- CUSTOM COMMANDS -->
 
-        </div>
+<div
+    id="custom"
+    class="panel hidden"
+>
 
-        <label>Pitch</label>
+<h2>🔗 Custom Voice Commands</h2>
 
-        <input
-            id="pitch"
-            type="range"
-            min="0.5"
-            max="2"
-            step="0.05"
-            value="1"
-        >
+<p>
+Create your own command.
+</p>
 
-        <button onclick="saveVoiceSettings()">
-            💾 Save Voice Settings
-        </button>
+<input
+    id="customName"
+    type="text"
+    placeholder="Example: my journey tracker"
+>
 
-        <button onclick="testVoice()">
-            🔊 Test Voice
-        </button>
+<br><br>
 
-        <hr>
+<input
+    id="customURL"
+    type="text"
+    placeholder="https://example.com"
+>
 
-        <h2>🎙️ Listening</h2>
+<br>
 
-        <div class="checkbox-row">
-            <input id="wakeWordEnabled" type="checkbox" checked>
-            <label for="wakeWordEnabled">
-                Require my assistant's name before commands
-            </label>
-        </div>
+<button onclick="saveCustomCommand()">
+💾 Save Command
+</button>
 
-        <div class="checkbox-row">
-            <input id="continuousEnabled" type="checkbox" checked>
-            <label for="continuousEnabled">
-                Keep listening after each response
-            </label>
-        </div>
+<div id="customList"></div>
 
-    </div>
+</div>
 
-    <!-- CUSTOM COMMANDS -->
 
-    <div class="panel" id="commandsPanel" style="display:none;">
+<!-- MODES -->
 
-        <h2>🔗 Custom Voice Commands</h2>
+<div class="panel">
 
-        <p class="small">
-            Create your own voice commands. For example, say
-            "Travis, open my tracker" and Travis will open the link you save.
-        </p>
+<h2>🧠 Current Mode</h2>
 
-        <label>Command phrase</label>
+<span
+    id="modeDisplay"
+    class="mode"
+>
+Normal Mode
+</span>
 
-        <input
-            id="customPhrase"
-            placeholder="open my journey tracker"
-        >
+<p>
+Try saying:
+</p>
 
-        <label>Website link</label>
+<ul>
 
-        <input
-            id="customUrl"
-            placeholder="https://example.com"
-        >
+<li>
+"Travirt, how does lightning work?"
+</li>
 
-        <button onclick="addCustomCommand()">
-            ➕ Add Command
-        </button>
+<li>
+"Travirt, study mode"
+</li>
 
-        <div id="customCommandsList"></div>
+<li>
+"Travirt, research Minecraft history"
+</li>
 
-    </div>
+<li>
+"Travirt, search for Journey Tracker"
+</li>
 
-    <!-- ASK PANEL -->
+<li>
+"Travirt, open YouTube"
+</li>
 
-    <div class="panel">
+<li>
+"Travirt, what's the weather?"
+</li>
 
-        <h2>💬 Ask Travis</h2>
+<li>
+"Travirt, louder"
+</li>
 
-        <input
-            id="askInput"
-            placeholder="Ask Travis something..."
-            onkeydown="if(event.key === 'Enter') askTravis()"
-        >
+<li>
+"Travirt, speak faster"
+</li>
 
-        <button onclick="askTravis()">
-            Ask
-        </button>
+<li>
+"Travirt, stop listening"
+</li>
 
-        <p id="answerArea" class="small"></p>
-    </div>
+</ul>
 
-    <!-- HISTORY -->
+</div>
 
-    <div class="panel" id="historyPanel" style="display:none;">
 
-        <h2>📜 Command History</h2>
+<!-- HISTORY -->
 
-        <div id="history" class="history"></div>
+<div class="panel">
 
-    </div>
+<h2>📜 Command History</h2>
+
+<div
+    id="history"
+    class="history"
+></div>
+
+</div>
 
 </div>
 
@@ -507,379 +546,468 @@
 <script>
 
 /* =========================================================
-   TRAVIS CONFIGURATION
-   ========================================================= */
+   TRAVIRT CONFIGURATION
+========================================================= */
 
 const LINKS = {
 
-    journey: "https://YOUR-JOURNEY-TRACKER-LINK-HERE",
+    journey:
+        "https://YOUR-JOURNEY-TRACKER-LINK-HERE",
 
-    khan: "https://www.khanacademy.org/",
+    khan:
+        "https://www.khanacademy.org/",
 
-    youtubeMusic: "https://music.youtube.com/",
+    youtubeMusic:
+        "https://music.youtube.com/",
 
-    googleDocs: "https://docs.google.com/document/",
+    googleDocs:
+        "https://docs.google.com/document/u/0/",
 
-    youtube: "https://www.youtube.com/",
+    youtube:
+        "https://www.youtube.com/",
 
-    google: "https://www.google.com/",
+    google:
+        "https://www.google.com/",
 
-    drive: "https://drive.google.com/",
+    gmail:
+        "https://mail.google.com/",
 
-    gmail: "https://mail.google.com/",
+    drive:
+        "https://drive.google.com/",
 
-    github: "https://github.com/",
+    github:
+        "https://github.com/",
 
-    chatgpt: "https://chatgpt.com/"
-
+    chatgpt:
+        "https://chatgpt.com/"
 };
 
 
 /* =========================================================
-   VARIABLES
-   ========================================================= */
+   BASIC VARIABLES
+========================================================= */
 
 let assistantName =
-    localStorage.getItem("travisName") || "Travis";
+    localStorage.getItem("travisName")
+    || "Travirt";
 
-let currentMode = "Normal";
-
-let recognition = null;
+let currentMode =
+    localStorage.getItem("travisMode")
+    || "Normal Mode";
 
 let listening = false;
 
-let manuallyStopped = false;
+let recognitionRunning = false;
 
 let speaking = false;
 
-let voices = [];
+let recognition = null;
+
+let restartTimer = null;
+
+let manuallyStopped = false;
+
+let processingCommand = false;
+
+
+/* =========================================================
+   VOICE SETTINGS
+========================================================= */
+
+let speechVolume =
+    Number(
+        localStorage.getItem("speechVolume")
+        ?? 1
+    );
+
+let speechRate =
+    Number(
+        localStorage.getItem("speechRate")
+        ?? 1
+    );
+
+let speechPitch =
+    Number(
+        localStorage.getItem("speechPitch")
+        ?? 1
+    );
+
+let selectedVoiceName =
+    localStorage.getItem("speechVoice")
+    || "";
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
 
 let history =
-    JSON.parse(localStorage.getItem("travisHistory") || "[]");
+    JSON.parse(
+        localStorage.getItem("travisHistory")
+        || "[]"
+    );
+
+
+/* =========================================================
+   CUSTOM COMMANDS
+========================================================= */
 
 let customCommands =
-    JSON.parse(localStorage.getItem("travisCustomCommands") || "[]");
+    JSON.parse(
+        localStorage.getItem("travisCustomCommands")
+        || "{}"
+    );
 
 
 /* =========================================================
-   ELEMENTS
-   ========================================================= */
+   HTML ELEMENTS
+========================================================= */
 
-const orb = document.getElementById("orb");
-const statusBox = document.getElementById("status");
-const modeText = document.getElementById("modeText");
-const historyBox = document.getElementById("history");
-const voiceSelect = document.getElementById("voiceSelect");
+const statusEl =
+    document.getElementById("status");
 
+const heardEl =
+    document.getElementById("heard");
 
-/* =========================================================
-   STARTUP
-   ========================================================= */
+const orb =
+    document.getElementById("orb");
 
-document.getElementById("nameInput").value = assistantName;
+const historyEl =
+    document.getElementById("history");
 
-updateNameDisplay();
-
-renderHistory();
-
-renderCustomCommands();
-
-loadVoiceSettings();
-
-loadVoices();
+const modeDisplay =
+    document.getElementById("modeDisplay");
 
 
 /* =========================================================
-   NAME
-   ========================================================= */
+   MODE DISPLAY
+========================================================= */
 
-function updateNameDisplay() {
+function updateModeDisplay() {
 
-    document.getElementById("titleName").textContent =
-        assistantName.toUpperCase();
-
-    document.title = assistantName;
-
-    document.getElementById("nameInput").value =
-        assistantName;
+    modeDisplay.textContent =
+        currentMode;
 }
 
-
-function saveName() {
-
-    let newName =
-        document.getElementById("nameInput").value.trim();
-
-    if (!newName) {
-
-        speak("Please enter a name.");
-
-        return;
-    }
-
-    assistantName = newName;
-
-    localStorage.setItem("travisName", assistantName);
-
-    updateNameDisplay();
-
-    speak("My name is now " + assistantName + ".");
-
-}
+updateModeDisplay();
 
 
 /* =========================================================
-   PANELS
-   ========================================================= */
-
-function togglePanel(id) {
-
-    const panel = document.getElementById(id);
-
-    if (panel.style.display === "none") {
-
-        panel.style.display = "block";
-
-    } else {
-
-        panel.style.display = "none";
-
-    }
-}
-
-
-/* =========================================================
-   MODE
-   ========================================================= */
+   CHANGE MODE
+========================================================= */
 
 function setMode(mode) {
 
     currentMode = mode;
 
-    modeText.textContent = mode;
+    localStorage.setItem(
+        "travisMode",
+        mode
+    );
 
-    speak(mode + " Mode activated.");
+    updateModeDisplay();
 
+    speak(
+        mode === "Normal Mode"
+        ? "Normal mode activated."
+        : mode.replace(
+            " Mode",
+            ""
+        ) + " mode activated."
+    );
 }
 
 
 /* =========================================================
-   STATUS
-   ========================================================= */
-
-function setStatus(text) {
-
-    statusBox.textContent = text;
-
-}
-
-
-/* =========================================================
-   VOICE LOADING
-   ========================================================= */
+   LOAD VOICES
+========================================================= */
 
 function loadVoices() {
 
-    if (!("speechSynthesis" in window)) {
+    const select =
+        document.getElementById(
+            "voiceSelect"
+        );
 
+    if (!select) return;
+
+    const voices =
+        speechSynthesis.getVoices();
+
+    select.innerHTML = "";
+
+    voices.forEach(voice => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            voice.name;
+
+        option.textContent =
+            voice.name +
+            " — " +
+            voice.lang;
+
+        select.appendChild(option);
+    });
+
+    if (selectedVoiceName) {
+
+        select.value =
+            selectedVoiceName;
+    }
+
+    select.onchange = () => {
+
+        selectedVoiceName =
+            select.value;
+
+        localStorage.setItem(
+            "speechVoice",
+            selectedVoiceName
+        );
+    };
+}
+
+speechSynthesis.onvoiceschanged =
+    loadVoices;
+
+loadVoices();
+
+
+/* =========================================================
+   VOICE SLIDERS
+========================================================= */
+
+const volumeSlider =
+    document.getElementById(
+        "volume"
+    );
+
+const rateSlider =
+    document.getElementById(
+        "rate"
+    );
+
+const pitchSlider =
+    document.getElementById(
+        "pitch"
+    );
+
+
+volumeSlider.value =
+    speechVolume;
+
+rateSlider.value =
+    speechRate;
+
+pitchSlider.value =
+    speechPitch;
+
+
+volumeSlider.oninput = event => {
+
+    speechVolume =
+        Number(
+            event.target.value
+        );
+
+    localStorage.setItem(
+        "speechVolume",
+        speechVolume
+    );
+};
+
+
+rateSlider.oninput = event => {
+
+    speechRate =
+        Number(
+            event.target.value
+        );
+
+    localStorage.setItem(
+        "speechRate",
+        speechRate
+    );
+};
+
+
+pitchSlider.oninput = event => {
+
+    speechPitch =
+        Number(
+            event.target.value
+        );
+
+    localStorage.setItem(
+        "speechPitch",
+        speechPitch
+    );
+};
+
+
+/* =========================================================
+   SPEAK
+========================================================= */
+
+function speak(text) {
+
+    if (
+        !document.getElementById(
+            "speakAbility"
+        ).checked
+    ) {
         return;
     }
 
-    voices = speechSynthesis.getVoices();
+    speechSynthesis.cancel();
 
-    voiceSelect.innerHTML = "";
+    speaking = true;
 
-    voices.forEach((voice, index) => {
+    const utterance =
+        new SpeechSynthesisUtterance(
+            text
+        );
 
-        const option =
-            document.createElement("option");
+    utterance.volume =
+        speechVolume;
 
-        option.value = index;
+    utterance.rate =
+        speechRate;
 
-        option.textContent =
-            voice.name + " — " + voice.lang;
+    utterance.pitch =
+        speechPitch;
 
-        voiceSelect.appendChild(option);
 
-    });
+    const voices =
+        speechSynthesis.getVoices();
 
-    const savedVoice =
-        localStorage.getItem("travisVoice");
+    const chosenVoice =
+        voices.find(
+            voice =>
+                voice.name ===
+                selectedVoiceName
+        );
 
-    if (savedVoice !== null) {
+    if (chosenVoice) {
 
-        voiceSelect.value = savedVoice;
-
+        utterance.voice =
+            chosenVoice;
     }
 
-}
+
+    utterance.onstart = () => {
+
+        statusEl.textContent =
+            "🔊 SPEAKING";
+
+        orb.classList.remove(
+            "listening"
+        );
+    };
 
 
-if ("speechSynthesis" in window) {
+    utterance.onend = () => {
 
-    speechSynthesis.onvoiceschanged = loadVoices;
+        speaking = false;
 
+        if (
+            listening &&
+            !manuallyStopped
+        ) {
+
+            statusEl.textContent =
+                "🎤 LISTENING";
+
+            orb.classList.add(
+                "listening"
+            );
+
+            scheduleRecognitionRestart();
+        }
+        else {
+
+            statusEl.textContent =
+                "READY";
+        }
+    };
+
+
+    utterance.onerror = () => {
+
+        speaking = false;
+
+        if (
+            listening &&
+            !manuallyStopped
+        ) {
+
+            scheduleRecognitionRestart();
+        }
+    };
+
+
+    speechSynthesis.speak(
+        utterance
+    );
 }
 
 
 /* =========================================================
-   VOICE SETTINGS
-   ========================================================= */
-
-function saveVoiceSettings() {
-
-    localStorage.setItem(
-        "travisVoice",
-        voiceSelect.value
-    );
-
-    localStorage.setItem(
-        "travisVolume",
-        document.getElementById("volume").value
-    );
-
-    localStorage.setItem(
-        "travisRate",
-        document.getElementById("rate").value
-    );
-
-    localStorage.setItem(
-        "travisPitch",
-        document.getElementById("pitch").value
-    );
-
-    speak("Voice settings saved.");
-
-}
-
-
-function loadVoiceSettings() {
-
-    const volume =
-        localStorage.getItem("travisVolume");
-
-    const rate =
-        localStorage.getItem("travisRate");
-
-    const pitch =
-        localStorage.getItem("travisPitch");
-
-    if (volume !== null)
-        document.getElementById("volume").value = volume;
-
-    if (rate !== null)
-        document.getElementById("rate").value = rate;
-
-    if (pitch !== null)
-        document.getElementById("pitch").value = pitch;
-
-}
-
+   TEST VOICE
+========================================================= */
 
 function testVoice() {
 
     speak(
         "Hello. I am " +
         assistantName +
-        ". This is my voice."
+        ". My voice settings are working."
     );
-
 }
 
 
 /* =========================================================
-   SPEAK
-   ========================================================= */
+   SPEECH RECOGNITION SUPPORT
+========================================================= */
 
-function speak(text) {
-
-    if (!("speechSynthesis" in window)) {
-
-        return;
-    }
-
-    speechSynthesis.cancel();
-
-    const utterance =
-        new SpeechSynthesisUtterance(text);
-
-    const selectedVoice =
-        voices[voiceSelect.value];
-
-    if (selectedVoice) {
-
-        utterance.voice = selectedVoice;
-
-    }
-
-    utterance.volume =
-        parseFloat(
-            document.getElementById("volume").value
-        );
-
-    utterance.rate =
-        parseFloat(
-            document.getElementById("rate").value
-        );
-
-    utterance.pitch =
-        parseFloat(
-            document.getElementById("pitch").value
-        );
-
-    utterance.onstart = () => {
-
-        speaking = true;
-
-        orb.classList.add("speaking");
-
-        setStatus("Speaking...");
-
-    };
-
-    utterance.onend = () => {
-
-        speaking = false;
-
-        orb.classList.remove("speaking");
-
-        if (listening && !manuallyStopped) {
-
-            setStatus("Listening...");
-
-        } else {
-
-            setStatus("Ready.");
-
-        }
-
-    };
-
-    speechSynthesis.speak(utterance);
-
-}
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
 
 /* =========================================================
-   CONTINUOUS LISTENING
-   ========================================================= */
+   CREATE RECOGNITION
+========================================================= */
 
 function createRecognition() {
 
-    const SpeechRecognition =
-        window.SpeechRecognition ||
-        window.webkitSpeechRecognition;
-
     if (!SpeechRecognition) {
 
-        speak(
-            "Speech recognition is not supported in this browser."
-        );
+        statusEl.textContent =
+            "❌ VOICE NOT SUPPORTED";
+
+        heardEl.textContent =
+            "Try opening Travirt in Chrome.";
 
         return null;
     }
 
-    const r = new SpeechRecognition();
+
+    const r =
+        new SpeechRecognition();
+
+
+    /*
+       We intentionally use short sessions.
+       Chrome is much more reliable this way.
+       Travirt immediately starts another session
+       after each one.
+    */
 
     r.continuous = false;
 
@@ -887,153 +1015,361 @@ function createRecognition() {
 
     r.lang = "en-US";
 
+
+    /* START */
+
     r.onstart = () => {
 
-        listening = true;
+        recognitionRunning = true;
 
-        orb.classList.add("listening");
+        statusEl.textContent =
+            "🎤 LISTENING";
 
-        setStatus("Listening...");
-
+        orb.classList.add(
+            "listening"
+        );
     };
 
 
-    r.onresult = (event) => {
+    /* RESULT */
 
-        const transcript =
-            event.results[event.results.length - 1][0].transcript;
+    r.onresult = event => {
 
-        setStatus("Heard: " + transcript);
+        recognitionRunning = false;
 
-        processVoiceCommand(transcript);
+        let transcript =
+            "";
 
+        for (
+            let i = event.resultIndex;
+            i < event.results.length;
+            i++
+        ) {
+
+            transcript +=
+                event.results[i][0]
+                    .transcript;
+        }
+
+        transcript =
+            transcript.trim();
+
+
+        if (!transcript) {
+
+            scheduleRecognitionRestart();
+
+            return;
+        }
+
+
+        heardEl.textContent =
+            "You said: " +
+            transcript;
+
+
+        addHistory(
+            "You: " +
+            transcript
+        );
+
+
+        /*
+           Give Chrome a moment to finish
+           closing the recognition session.
+        */
+
+        setTimeout(
+            () => {
+
+                processVoiceCommand(
+                    transcript
+                );
+
+            },
+            80
+        );
     };
 
 
-    r.onerror = (event) => {
+    /* ERROR */
 
-        console.log("Speech recognition error:", event.error);
+    r.onerror = event => {
+
+        recognitionRunning = false;
+
+        console.log(
+            "Speech recognition:",
+            event.error
+        );
+
 
         if (
-            event.error === "not-allowed" ||
-            event.error === "service-not-allowed"
+            event.error ===
+            "not-allowed"
+            ||
+            event.error ===
+            "service-not-allowed"
         ) {
 
             listening = false;
 
-            orb.classList.remove("listening");
+            manuallyStopped = true;
 
-            setStatus("Microphone permission is needed.");
+            orb.classList.remove(
+                "listening"
+            );
+
+            statusEl.textContent =
+                "❌ MICROPHONE BLOCKED";
+
+            heardEl.textContent =
+                "Chrome blocked microphone access. Allow the microphone for this site.";
 
             return;
-
         }
+
 
         if (
-            listening &&
-            !manuallyStopped
+            event.error ===
+            "audio-capture"
         ) {
 
-            restartListening();
+            statusEl.textContent =
+                "❌ MICROPHONE ERROR";
 
+            heardEl.textContent =
+                "Chrome could not access your microphone.";
+
+            scheduleRecognitionRestart();
+
+            return;
         }
 
+
+        if (
+            event.error ===
+            "no-speech"
+        ) {
+
+            scheduleRecognitionRestart();
+
+            return;
+        }
+
+
+        if (
+            event.error ===
+            "aborted"
+        ) {
+
+            scheduleRecognitionRestart();
+
+            return;
+        }
+
+
+        scheduleRecognitionRestart();
     };
 
+
+    /* END */
 
     r.onend = () => {
 
-        orb.classList.remove("listening");
+        recognitionRunning = false;
+
+
+        /*
+           IMPORTANT:
+           Do NOT turn off the main listening state.
+           Chrome ending a recognition session does NOT
+           mean the user pressed Stop.
+        */
 
         if (
             listening &&
-            !manuallyStopped
+            !manuallyStopped &&
+            !speaking
         ) {
 
-            restartListening();
+            statusEl.textContent =
+                "🎤 LISTENING";
 
-        } else {
+            orb.classList.add(
+                "listening"
+            );
 
-            setStatus("Ready.");
-
+            scheduleRecognitionRestart();
         }
-
     };
+
 
     return r;
 }
 
 
-function startContinuousListening() {
+/* =========================================================
+   START LISTENING
+========================================================= */
+
+function startListening() {
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "Speech recognition is not supported here. Try Chrome."
+        );
+
+        return;
+    }
+
 
     manuallyStopped = false;
 
     listening = true;
 
+    processingCommand = false;
+
+
+    statusEl.textContent =
+        "🎤 STARTING...";
+
+    heardEl.textContent =
+        "Microphone starting...";
+
+
+    orb.classList.add(
+        "listening"
+    );
+
+
     if (!recognition) {
 
-        recognition = createRecognition();
-
+        recognition =
+            createRecognition();
     }
 
-    if (!recognition) {
 
-        return;
-    }
+    startRecognitionSafely();
+}
+
+
+/* =========================================================
+   SAFE RECOGNITION START
+========================================================= */
+
+function startRecognitionSafely() {
+
+    if (!recognition) return;
+
+    if (!listening) return;
+
+    if (manuallyStopped) return;
+
+    if (recognitionRunning) return;
+
+    if (speaking) return;
+
+
+    clearTimeout(
+        restartTimer
+    );
+
 
     try {
 
         recognition.start();
 
-    } catch (error) {
-
-        restartListening();
-
     }
 
+    catch(error) {
+
+        console.log(
+            "Recognition start:",
+            error
+        );
+
+
+        recognitionRunning =
+            false;
+
+
+        setTimeout(
+            () => {
+
+                if (
+                    listening &&
+                    !manuallyStopped &&
+                    !recognitionRunning &&
+                    !speaking
+                ) {
+
+                    startRecognitionSafely();
+                }
+
+            },
+            350
+        );
+    }
 }
 
 
-function restartListening() {
+/* =========================================================
+   RESTART LISTENING
+========================================================= */
 
-    if (
-        !listening ||
-        manuallyStopped
-    ) {
+function scheduleRecognitionRestart() {
 
-        return;
-    }
+    if (!listening) return;
 
-    setTimeout(() => {
+    if (manuallyStopped) return;
 
-        if (
-            listening &&
-            !manuallyStopped
-        ) {
+    if (speaking) return;
 
-            try {
 
-                recognition.start();
+    clearTimeout(
+        restartTimer
+    );
 
-            } catch (error) {
 
-                // Recognition may already be running.
-            }
+    restartTimer =
+        setTimeout(
+            () => {
 
-        }
+                if (
+                    listening &&
+                    !manuallyStopped &&
+                    !recognitionRunning &&
+                    !speaking
+                ) {
 
-    }, 600);
+                    startRecognitionSafely();
+                }
 
+            },
+            250
+        );
 }
 
 
-function stopListening(speakMessage = true) {
+/* =========================================================
+   STOP LISTENING
+========================================================= */
+
+function stopListening() {
 
     manuallyStopped = true;
 
     listening = false;
 
-    orb.classList.remove("listening");
+    processingCommand = false;
+
+
+    clearTimeout(
+        restartTimer
+    );
+
 
     if (recognition) {
 
@@ -1041,206 +1377,1163 @@ function stopListening(speakMessage = true) {
 
             recognition.stop();
 
-        } catch (error) {}
+        }
 
+        catch(error) {
+
+            console.log(error);
+        }
     }
 
-    if (speakMessage) {
 
-        speak("Listening stopped.");
+    recognitionRunning =
+        false;
 
-    } else {
 
-        setStatus("Ready.");
+    speechSynthesis.cancel();
 
-    }
+    speaking = false;
 
+
+    orb.classList.remove(
+        "listening"
+    );
+
+
+    statusEl.textContent =
+        "⏹ STOPPED";
+
+
+    heardEl.textContent =
+        "Travirt is no longer listening.";
 }
 
 
 /* =========================================================
    VOICE COMMAND PROCESSING
-   ========================================================= */
+========================================================= */
 
-function processVoiceCommand(command) {
+function processVoiceCommand(
+    text
+) {
 
-    let text = command.trim();
+    if (!listening) return;
 
-    if (!text) {
+
+    let command =
+        text.trim();
+
+
+    const wakeEnabled =
+        document.getElementById(
+            "wakeAbility"
+        ).checked;
+
+
+    const name =
+        assistantName.toLowerCase();
+
+
+    /*
+       STOP LISTENING IS SPECIAL.
+       It is checked BEFORE the normal wake-word
+       requirement so "Travirt, stop listening"
+       always works.
+    */
+
+    if (
+        containsStopCommand(
+            command
+        )
+    ) {
+
+        stopListening();
 
         return;
     }
 
+
     /*
-       If wake-word mode is enabled,
-       Travis expects its name.
+       If Wake Word is enabled,
+       Travirt must hear its name.
     */
-
-    const wakeEnabled =
-        document.getElementById("wakeWordEnabled").checked;
-
-    const lower =
-        text.toLowerCase();
-
-    const nameLower =
-        assistantName.toLowerCase();
 
     if (wakeEnabled) {
 
-        if (!lower.includes(nameLower)) {
+        if (
+            !command
+                .toLowerCase()
+                .includes(name)
+        ) {
+
+            heardEl.textContent =
+                "Background speech ignored.";
 
             /*
-              Ignore things that are not directed
-              at Travis.
+               Keep listening.
             */
 
-            setStatus("Listening...");
+            scheduleRecognitionRestart();
 
             return;
-
         }
-
     }
 
-    runCommand(text);
 
+    runCommand(command);
 }
 
 
 /* =========================================================
-   CLEAN COMMAND
-   ========================================================= */
+   STOP COMMAND CHECK
+========================================================= */
 
-function cleanCommand(command) {
+function containsStopCommand(
+    text
+) {
 
-    let text = command.trim();
+    const lower =
+        text.toLowerCase();
 
-    /*
-       Remove assistant name anywhere in the command.
-    */
 
-    const nameRegex =
-        new RegExp(
-            "\\b" +
-            escapeRegex(assistantName) +
-            "\\b",
-            "gi"
-        );
-
-    text = text.replace(nameRegex, " ");
-
-    /*
-       Remove common command filler.
-    */
-
-    text = text.replace(
-        /^(please\s+)?/i,
-        ""
+    return (
+        lower.includes(
+            assistantName.toLowerCase() +
+            " stop listening"
+        )
+        ||
+        lower.includes(
+            assistantName.toLowerCase() +
+            " stop"
+        )
+        ||
+        lower === "stop listening"
+        ||
+        lower === "stop";
     );
-
-    text = text.replace(
-        /^(can you\s+|could you\s+|would you\s+)?/i,
-        ""
-    );
-
-    text = text.trim();
-
-    return text;
-
 }
 
 
-function escapeRegex(text) {
+/* =========================================================
+   TYPED COMMAND
+========================================================= */
 
-    return text.replace(
-        /[.*+?^${}()|[\]\\]/g,
-        "\\$&"
+function sendTypedCommand() {
+
+    const input =
+        document.getElementById(
+            "commandInput"
+        );
+
+
+    const command =
+        input.value.trim();
+
+
+    if (!command) return;
+
+
+    heardEl.textContent =
+        "You typed: " +
+        command;
+
+
+    addHistory(
+        "You: " +
+        command
     );
 
+
+    input.value = "";
+
+
+    runCommand(
+        command
+    );
 }
 
 
 /* =========================================================
    MAIN COMMAND ENGINE
-   ========================================================= */
+========================================================= */
 
-function runCommand(rawCommand) {
+function runCommand(
+    command
+) {
 
-    const cleaned =
-        cleanCommand(rawCommand);
-
-    const lower =
-        cleaned.toLowerCase();
-
-    addHistory(rawCommand);
+    let lower =
+        command
+            .toLowerCase()
+            .trim();
 
 
-    /* =========================
-       GREETINGS
-       ========================= */
+    const name =
+        assistantName.toLowerCase();
+
+
+    /*
+       Remove Travirt's name.
+    */
+
+    lower =
+        lower.replace(
+            new RegExp(
+                "\\b" +
+                escapeRegExp(name) +
+                "\\b",
+                "gi"
+            ),
+            ""
+        )
+        .trim();
+
+
+    /* GREETINGS */
 
     if (
-        /^(hi|hello|hey|hiya|howdy)\b/i.test(cleaned)
+        lower === "hi"
+        ||
+        lower === "hello"
+        ||
+        lower === "hey"
+        ||
+        lower.includes(
+            "how's it going"
+        )
+        ||
+        lower.includes(
+            "how are you"
+        )
+        ||
+        lower.includes(
+            "thank you"
+        )
+        ||
+        lower.includes(
+            "thanks"
+        )
     ) {
 
-        const greetings = [
-            "Hi!",
-            "Hello!",
-            "Hey!",
-            "Hi there!"
-        ];
+        speak(
+            lower.includes(
+                "thank"
+            )
+            ||
+            lower.includes(
+                "thanks"
+            )
+            ? "You're welcome!"
+            : "Hello! I'm " +
+              assistantName +
+              ". How can I help?"
+        );
 
-        const answer =
-            greetings[
-                Math.floor(
-                    Math.random() *
-                    greetings.length
+        return;
+    }
+
+
+    /* CHANGE NAME */
+
+    if (
+        lower.startsWith(
+            "change your name to "
+        )
+        ||
+        lower.startsWith(
+            "change your name "
+        )
+        ||
+        lower.startsWith(
+            "call yourself "
+        )
+        ||
+        lower.startsWith(
+            "your name is "
+        )
+    ) {
+
+        let newName =
+            lower
+                .replace(
+                    "change your name to ",
+                    ""
                 )
-            ];
+                .replace(
+                    "change your name ",
+                    ""
+                )
+                .replace(
+                    "call yourself ",
+                    ""
+                )
+                .replace(
+                    "your name is ",
+                    ""
+                )
+                .trim();
 
-        speak(answer);
+
+        if (newName) {
+
+            assistantName =
+                capitalizeWords(
+                    newName
+                );
+
+
+            localStorage.setItem(
+                "travisName",
+                assistantName
+            );
+
+
+            speak(
+                "Okay. My name is now " +
+                assistantName +
+                "."
+            );
+        }
 
         return;
     }
 
 
-    /* =========================
-       THANK YOU
-       ========================= */
+    /* SCHOOL MODE */
 
     if (
-        /^(thanks|thank you|thx)\b/i.test(cleaned)
+        lower.includes(
+            "school mode"
+        )
+        ||
+        lower.includes(
+            "activate school"
+        )
     ) {
 
-        speak("You're welcome!");
+        schoolMode();
 
         return;
     }
 
 
-    /* =========================
-       STOP
-       ========================= */
+    /* STUDY MODE */
 
     if (
-        lower === "stop listening" ||
-        lower === "stop"
+        lower === "study mode"
+        ||
+        lower.includes(
+            "activate study mode"
+        )
     ) {
 
-        stopListening(true);
+        setMode(
+            "Study Mode"
+        );
 
         return;
     }
 
 
-    /* =========================
-       NAME
-       ========================= */
+    /* MATH MODE */
 
     if (
-        lower.includes("what is your name") ||
-        lower.includes("what's your name") ||
-        lower.includes("who are you")
+        lower === "math mode"
+        ||
+        lower.includes(
+            "activate math mode"
+        )
+    ) {
+
+        setMode(
+            "Math Mode"
+        );
+
+        return;
+    }
+
+
+    /* RESEARCH MODE */
+
+    if (
+        lower === "research mode"
+        ||
+        lower.includes(
+            "activate research mode"
+        )
+    ) {
+
+        setMode(
+            "Research Mode"
+        );
+
+        return;
+    }
+
+
+    /* NORMAL MODE */
+
+    if (
+        lower === "normal mode"
+        ||
+        lower.includes(
+            "activate normal mode"
+        )
+    ) {
+
+        setMode(
+            "Normal Mode"
+        );
+
+        return;
+    }
+
+
+    /* LOUDER */
+
+    if (
+        lower === "louder"
+        ||
+        lower.includes(
+            "make yourself louder"
+        )
+    ) {
+
+        speechVolume =
+            Math.min(
+                1,
+                speechVolume + .1
+            );
+
+
+        volumeSlider.value =
+            speechVolume;
+
+
+        localStorage.setItem(
+            "speechVolume",
+            speechVolume
+        );
+
+
+        speak(
+            "Volume increased."
+        );
+
+        return;
+    }
+
+
+    /* QUIETER */
+
+    if (
+        lower === "quieter"
+        ||
+        lower.includes(
+            "make yourself quieter"
+        )
+    ) {
+
+        speechVolume =
+            Math.max(
+                0,
+                speechVolume - .1
+            );
+
+
+        volumeSlider.value =
+            speechVolume;
+
+
+        localStorage.setItem(
+            "speechVolume",
+            speechVolume
+        );
+
+
+        speak(
+            "Volume decreased."
+        );
+
+        return;
+    }
+
+
+    /* FASTER */
+
+    if (
+        lower.includes(
+            "speak faster"
+        )
+        ||
+        lower.includes(
+            "talk faster"
+        )
+    ) {
+
+        speechRate =
+            Math.min(
+                2,
+                speechRate + .15
+            );
+
+
+        rateSlider.value =
+            speechRate;
+
+
+        localStorage.setItem(
+            "speechRate",
+            speechRate
+        );
+
+
+        speak(
+            "Okay. I'll speak faster."
+        );
+
+        return;
+    }
+
+
+    /* SLOWER */
+
+    if (
+        lower.includes(
+            "speak slower"
+        )
+        ||
+        lower.includes(
+            "talk slower"
+        )
+    ) {
+
+        speechRate =
+            Math.max(
+                .5,
+                speechRate - .15
+            );
+
+
+        rateSlider.value =
+            speechRate;
+
+
+        localStorage.setItem(
+            "speechRate",
+            speechRate
+        );
+
+
+        speak(
+            "Okay. I'll speak slower."
+        );
+
+        return;
+    }
+
+
+    /* TIME */
+
+    if (
+        lower.includes(
+            "what time is it"
+        )
+        ||
+        lower === "time"
+    ) {
+
+        const now =
+            new Date();
+
+
+        speak(
+            "It is " +
+            now.toLocaleTimeString(
+                [],
+                {
+                    hour:
+                        "numeric",
+
+                    minute:
+                        "2-digit"
+                }
+            )
+        );
+
+        return;
+    }
+
+
+    /* DATE */
+
+    if (
+        lower.includes(
+            "today's date"
+        )
+        ||
+        lower.includes(
+            "what day is it"
+        )
+        ||
+        lower === "date"
+    ) {
+
+        const now =
+            new Date();
+
+
+        speak(
+            "Today is " +
+            now.toLocaleDateString(
+                [],
+                {
+                    weekday:
+                        "long",
+
+                    month:
+                        "long",
+
+                    day:
+                        "numeric",
+
+                    year:
+                        "numeric"
+                }
+            )
+        );
+
+        return;
+    }
+
+
+    /* WEATHER */
+
+    if (
+        lower.includes(
+            "weather"
+        )
+        ||
+        lower.includes(
+            "temperature outside"
+        )
+        ||
+        lower.includes(
+            "heat outside"
+        )
+        ||
+        lower.includes(
+            "how hot is it"
+        )
+    ) {
+
+        weatherSearch(
+            lower
+        );
+
+        return;
+    }
+
+
+    /* CUSTOM COMMANDS */
+
+    if (
+        runCustomCommand(
+            lower
+        )
+    ) {
+
+        return;
+    }
+
+
+    /* OPEN WEBSITES */
+
+    if (
+        lower.startsWith(
+            "open "
+        )
+    ) {
+
+        const target =
+            lower
+                .replace(
+                    /^open\s+/,
+                    ""
+                )
+                .trim();
+
+
+        openNamedWebsite(
+            target
+        );
+
+        return;
+    }
+
+
+    /* GO TO CUSTOM COMMAND */
+
+    if (
+        lower.startsWith(
+            "go to "
+        )
+    ) {
+
+        const target =
+            lower
+                .replace(
+                    /^go to\s+/,
+                    ""
+                )
+                .trim();
+
+
+        if (
+            runCustomCommand(
+                target
+            )
+        ) {
+
+            return;
+        }
+
+
+        speak(
+            "I don't have a custom command named " +
+            target +
+            "."
+        );
+
+        return;
+    }
+
+
+    /* SCROLL DOWN */
+
+    if (
+        lower.includes(
+            "scroll down"
+        )
+    ) {
+
+        if (
+            document.getElementById(
+                "scrollAbility"
+            ).checked
+        ) {
+
+            window.scrollBy(
+                {
+                    top:
+                        window.innerHeight *
+                        .8,
+
+                    behavior:
+                        "smooth"
+                }
+            );
+
+            speak(
+                "Scrolling down."
+            );
+        }
+
+        return;
+    }
+
+
+    /* SCROLL UP */
+
+    if (
+        lower.includes(
+            "scroll up"
+        )
+    ) {
+
+        if (
+            document.getElementById(
+                "scrollAbility"
+            ).checked
+        ) {
+
+            window.scrollBy(
+                {
+                    top:
+                        -window.innerHeight *
+                        .8,
+
+                    behavior:
+                        "smooth"
+                }
+            );
+
+            speak(
+                "Scrolling up."
+            );
+        }
+
+        return;
+    }
+
+
+    /* TOP */
+
+    if (
+        lower === "top"
+    ) {
+
+        window.scrollTo(
+            {
+                top: 0,
+                behavior:
+                    "smooth"
+            }
+        );
+
+        speak(
+            "Going to the top."
+        );
+
+        return;
+    }
+
+
+    /* BOTTOM */
+
+    if (
+        lower === "bottom"
+    ) {
+
+        window.scrollTo(
+            {
+                top:
+                    document.body
+                        .scrollHeight,
+
+                behavior:
+                    "smooth"
+            }
+        );
+
+        speak(
+            "Going to the bottom."
+        );
+
+        return;
+    }
+
+
+    /* MATH */
+
+    if (
+        currentMode ===
+        "Math Mode"
+        ||
+        lower.startsWith(
+            "calculate "
+        )
+        ||
+        lower.startsWith(
+            "what is "
+        )
+    ) {
+
+        const math =
+            extractMath(
+                lower
+            );
+
+
+        if (math) {
+
+            try {
+
+                const result =
+                    Function(
+                        '"use strict"; return (' +
+                        math +
+                        ')'
+                    )();
+
+
+                speak(
+                    "The answer is " +
+                    result
+                );
+
+
+                return;
+
+            }
+
+            catch(error) {
+                // Not simple math.
+            }
+        }
+    }
+
+
+    /* SEARCH */
+
+    if (
+        lower.startsWith(
+            "search "
+        )
+        ||
+        lower.startsWith(
+            "look up "
+        )
+        ||
+        lower.startsWith(
+            "google "
+        )
+        ||
+        lower.startsWith(
+            "find "
+        )
+    ) {
+
+        const query =
+            getSearchQuery(
+                lower
+            );
+
+
+        if (query) {
+
+            searchWeb(
+                query
+            );
+
+        }
+
+        else {
+
+            speak(
+                "What would you like me to search for?"
+            );
+        }
+
+        return;
+    }
+
+
+    /* RESEARCH */
+
+    if (
+        lower.startsWith(
+            "research "
+        )
+    ) {
+
+        const query =
+            lower.replace(
+                /^research\s+/,
+                ""
+            ).trim();
+
+
+        if (query) {
+
+            searchWeb(
+                query
+            );
+        }
+
+        return;
+    }
+
+
+    /* ASK */
+
+    /*
+       Normal questions do NOT automatically
+       open Google.
+
+       Travirt gives a response using its
+       built-in answer behavior.
+    */
+
+    if (
+        lower.startsWith(
+            "ask "
+        )
+        ||
+        lower.startsWith(
+            "why "
+        )
+        ||
+        lower.startsWith(
+            "how "
+        )
+        ||
+        lower.startsWith(
+            "what "
+        )
+        ||
+        lower.startsWith(
+            "when "
+        )
+        ||
+        lower.startsWith(
+            "where "
+        )
+    ) {
+
+        answerQuestion(
+            lower
+        );
+
+        return;
+    }
+
+
+    /* HELP */
+
+    if (
+        lower === "help"
+        ||
+        lower.includes(
+            "what can you do"
+        )
+    ) {
+
+        speak(
+            "I can answer questions, search the web, open websites, use custom commands, activate study and research modes, tell you the time, check weather, scroll, and change my voice."
+        );
+
+        return;
+    }
+
+
+    /*
+       IMPORTANT:
+       Don't automatically search every random
+       background sentence.
+
+       If wake word was required, it already
+       passed that check.
+    */
+
+    answerQuestion(
+        lower
+    );
+}
+
+
+/* =========================================================
+   CLEAN SEARCH
+========================================================= */
+
+function getSearchQuery(
+    text
+) {
+
+    let query =
+        text;
+
+
+    const phrases = [
+
+        "search up",
+
+        "search for",
+
+        "search",
+
+        "look up",
+
+        "google",
+
+        "find"
+    ];
+
+
+    for (
+        const phrase
+        of phrases
+    ) {
+
+        if (
+            query.startsWith(
+                phrase
+            )
+        ) {
+
+            query =
+                query
+                    .substring(
+                        phrase.length
+                    )
+                    .trim();
+
+            break;
+        }
+    }
+
+
+    return query.trim();
+}
+
+
+/* =========================================================
+   SEARCH WEB
+========================================================= */
+
+function searchWeb(
+    query
+) {
+
+    if (
+        !document.getElementById(
+            "searchAbility"
+        ).checked
+    ) {
+
+        speak(
+            "Web search is turned off."
+        );
+
+        return;
+    }
+
+
+    const url =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(
+            query
+        );
+
+
+    openWebsite(
+        url,
+        "Google search"
+    );
+}
+
+
+/* =========================================================
+   ANSWER NORMAL QUESTIONS
+========================================================= */
+
+function answerQuestion(
+    question
+) {
+
+    /*
+       These are simple built-in responses.
+       Travirt does not pretend it has an AI brain
+       inside the webpage.
+
+       For questions requiring current information,
+       say "research" or "search".
+    */
+
+
+    if (
+        question.includes(
+            "your name"
+        )
     ) {
 
         speak(
@@ -1253,1057 +2546,754 @@ function runCommand(rawCommand) {
     }
 
 
-    /* =========================
-       CHANGE NAME
-       ========================= */
-
-    const nameMatch =
-        cleaned.match(
-            /(?:change your name to|rename yourself to|your name is)\s+(.+)/i
-        );
-
-    if (nameMatch) {
-
-        const newName =
-            nameMatch[1].trim();
-
-        if (newName) {
-
-            assistantName = newName;
-
-            localStorage.setItem(
-                "travisName",
-                assistantName
-            );
-
-            updateNameDisplay();
-
-            speak(
-                "Okay. My name is now " +
-                assistantName +
-                "."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    /* =========================
-       CUSTOM COMMANDS
-       ========================= */
-
-    for (const item of customCommands) {
-
-        if (
-            lower === item.phrase.toLowerCase() ||
-            lower.includes(item.phrase.toLowerCase())
-        ) {
-
-            speak(
-                "Opening " +
-                item.phrase
-            );
-
-            openWebsite(item.url);
-
-            return;
-        }
-
-    }
-
-
-    /* =========================
-       SCHOOL MODE
-       ========================= */
-
     if (
-        lower.includes("school mode") ||
-        lower.includes("activate school mode")
-    ) {
-
-        schoolMode();
-
-        return;
-    }
-
-
-    /* =========================
-       MODE COMMANDS
-       ========================= */
-
-    if (lower.includes("ask mode")) {
-
-        setMode("Ask");
-
-        return;
-    }
-
-    if (lower.includes("study mode")) {
-
-        setMode("Study");
-
-        return;
-    }
-
-    if (lower.includes("research mode")) {
-
-        setMode("Research");
-
-        return;
-    }
-
-
-    /* =========================
-       VOICE CONTROLS
-       ========================= */
-
-    if (lower.includes("louder")) {
-
-        changeVolume(0.1);
-
-        return;
-    }
-
-    if (lower.includes("quieter") || lower.includes("quiet")) {
-
-        changeVolume(-0.1);
-
-        return;
-    }
-
-    if (
-        lower.includes("speak faster") ||
-        lower.includes("talk faster")
-    ) {
-
-        changeRate(0.15);
-
-        return;
-    }
-
-    if (
-        lower.includes("speak slower") ||
-        lower.includes("talk slower")
-    ) {
-
-        changeRate(-0.15);
-
-        return;
-    }
-
-
-    /* =========================
-       TIME
-       ========================= */
-
-    if (
-        lower === "time" ||
-        lower.includes("what time is it")
-    ) {
-
-        const now = new Date();
-
-        speak(
-            "It is " +
-            now.toLocaleTimeString([], {
-                hour: "numeric",
-                minute: "2-digit"
-            })
-        );
-
-        return;
-    }
-
-
-    /* =========================
-       DATE
-       ========================= */
-
-    if (
-        lower.includes("what day is it") ||
-        lower === "date"
-    ) {
-
-        const now = new Date();
-
-        speak(
-            "Today is " +
-            now.toLocaleDateString([], {
-                weekday: "long",
-                month: "long",
-                day: "numeric"
-            })
-        );
-
-        return;
-    }
-
-
-    /* =========================
-       WEBSITE SHORTCUTS
-       ========================= */
-
-    if (
-        lower.includes("open youtube music")
-    ) {
-
-        openWebsite(LINKS.youtubeMusic);
-
-        speak("Opening YouTube Music.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open youtube")
-    ) {
-
-        openWebsite(LINKS.youtube);
-
-        speak("Opening YouTube.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open google")
-    ) {
-
-        openWebsite(LINKS.google);
-
-        speak("Opening Google.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open drive")
-    ) {
-
-        openWebsite(LINKS.drive);
-
-        speak("Opening Drive.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open gmail")
-    ) {
-
-        openWebsite(LINKS.gmail);
-
-        speak("Opening Gmail.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open github")
-    ) {
-
-        openWebsite(LINKS.github);
-
-        speak("Opening GitHub.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("open chatgpt")
-    ) {
-
-        openWebsite(LINKS.chatgpt);
-
-        speak("Opening ChatGPT.");
-
-        return;
-    }
-
-
-    /* =========================
-       SCROLL
-       ========================= */
-
-    if (
-        lower.includes("scroll down")
-    ) {
-
-        window.scrollBy({
-            top: 600,
-            behavior: "smooth"
-        });
-
-        speak("Scrolling down.");
-
-        return;
-    }
-
-
-    if (
-        lower.includes("scroll up")
-    ) {
-
-        window.scrollBy({
-            top: -600,
-            behavior: "smooth"
-        });
-
-        speak("Scrolling up.");
-
-        return;
-    }
-
-
-    if (
-        lower === "top" ||
-        lower.includes("go to the top")
-    ) {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-        speak("Going to the top.");
-
-        return;
-    }
-
-
-    if (
-        lower === "bottom" ||
-        lower.includes("go to the bottom")
-    ) {
-
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: "smooth"
-        });
-
-        speak("Going to the bottom.");
-
-        return;
-    }
-
-
-    /* =========================
-       MATH
-       ========================= */
-
-    if (
-        lower.startsWith("calculate ") ||
-        lower.startsWith("what is ") ||
-        lower.startsWith("solve ")
-    ) {
-
-        const possibleMath =
-            cleaned
-                .replace(/^calculate\s+/i, "")
-                .replace(/^what is\s+/i, "")
-                .replace(/^solve\s+/i, "");
-
-        if (
-            /^[0-9+\-*/().%\s]+$/.test(
-                possibleMath
-            )
-        ) {
-
-            try {
-
-                const answer =
-                    Function(
-                        '"use strict"; return (' +
-                        possibleMath +
-                        ')'
-                    )();
-
-                if (
-                    typeof answer === "number" &&
-                    Number.isFinite(answer)
-                ) {
-
-                    speak(
-                        "The answer is " +
-                        answer
-                    );
-
-                    return;
-
-                }
-
-            } catch (error) {}
-
-        }
-
-    }
-
-
-    /* =========================
-       SEARCH
-       ========================= */
-
-    if (
-        lower.startsWith("search") ||
-        lower.startsWith("look up") ||
-        lower.startsWith("google") ||
-        lower.startsWith("find")
-    ) {
-
-        let query =
-            getSearchQuery(cleaned);
-
-        if (query) {
-
-            searchWeb(query);
-
-        } else {
-
-            speak("What would you like me to search for?");
-
-        }
-
-        return;
-    }
-
-
-    /* =========================
-       OPEN URL
-       ========================= */
-
-    if (
-        lower.startsWith("open ")
-    ) {
-
-        const target =
-            cleaned
-                .replace(/^open\s+/i, "")
-                .trim();
-
-        if (
-            target.startsWith("http://") ||
-            target.startsWith("https://")
-        ) {
-
-            openWebsite(target);
-
-            speak("Opening it.");
-
-            return;
-        }
-
-    }
-
-
-    /* =========================
-       HELP
-       ========================= */
-
-    if (
-        lower === "help" ||
-        lower.includes("what can you do")
+        question.includes(
+            "who are you"
+        )
     ) {
 
         speak(
-            "You can ask me questions, search the web, open websites, use School Mode, change my name, create custom commands, and control my voice."
+            "I'm " +
+            assistantName +
+            ", your digital assistant."
         );
 
         return;
     }
 
-
-    /* =========================
-       DEFAULT
-       ========================= */
 
     if (
-        currentMode === "Research" ||
-        currentMode === "Ask"
+        question.includes(
+            "what can you do"
+        )
     ) {
 
-        searchWeb(cleaned);
+        speak(
+            "I can listen for commands, answer simple questions, search the web, open websites, use custom commands, and help with school modes."
+        );
 
         return;
     }
 
-
-    /*
-       If it doesn't match a command,
-       search it rather than doing nothing.
-    */
-
-    searchWeb(cleaned);
-
-}
-
-
-/* =========================================================
-   SEARCH QUERY CLEANER
-   ========================================================= */
-
-function getSearchQuery(text) {
-
-    let query = text;
-
-    /*
-       Remove assistant name AGAIN.
-       This makes sure the name never appears
-       in Google searches.
-    */
-
-    const nameRegex =
-        new RegExp(
-            "\\b" +
-            escapeRegex(assistantName) +
-            "\\b",
-            "gi"
-        );
-
-    query =
-        query.replace(nameRegex, " ");
-
-
-    /*
-       Remove command phrases.
-    */
-
-    query =
-        query.replace(
-            /^(please\s+)?(search|search for|search up|look up|google|find)\s*/i,
-            ""
-        );
-
-
-    query =
-        query.replace(
-            /^(please\s+)?(for|up)\s+/i,
-            ""
-        );
-
-
-    /*
-       Remove common filler.
-    */
-
-    query =
-        query.replace(
-            /^(can you|could you|would you|please)\s+/i,
-            ""
-        );
-
-
-    /*
-       Remove punctuation at the beginning/end.
-    */
-
-    query =
-        query
-            .replace(/^[,.:;!?-\s]+/, "")
-            .replace(/[,.:;!?-\s]+$/, "")
-            .trim();
-
-
-    return query;
-
-}
-
-
-/* =========================================================
-   WEB SEARCH
-   ========================================================= */
-
-function searchWeb(query) {
-
-    /*
-       Final safety cleanup so assistant name
-       never gets sent to Google.
-    */
-
-    const cleanedQuery =
-        getSearchQuery(query);
-
-    if (!cleanedQuery) {
-
-        speak("What should I search for?");
-
-        return;
-    }
 
     speak(
-        "Searching for " +
-        cleanedQuery
+        "I can try to help with that. If you want me to look it up, say " +
+        assistantName +
+        " research followed by your question."
     );
+}
 
-    const url =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(cleanedQuery);
 
-    openWebsite(url);
+/* =========================================================
+   OPEN NAMED WEBSITE
+========================================================= */
 
+function openNamedWebsite(
+    target
+) {
+
+    const sites = {
+
+        "youtube":
+            LINKS.youtube,
+
+        "youtube music":
+            LINKS.youtubeMusic,
+
+        "google":
+            LINKS.google,
+
+        "gmail":
+            LINKS.gmail,
+
+        "google drive":
+            LINKS.drive,
+
+        "drive":
+            LINKS.drive,
+
+        "github":
+            LINKS.github,
+
+        "chatgpt":
+            LINKS.chatgpt,
+
+        "khan academy":
+            LINKS.khan,
+
+        "google docs":
+            LINKS.googleDocs,
+
+        "journey tracker":
+            LINKS.journey
+    };
+
+
+    if (
+        sites[target]
+    ) {
+
+        openWebsite(
+            sites[target],
+            target
+        );
+
+        return;
+    }
+
+
+    /*
+       Unknown "open" command.
+       Do NOT search automatically.
+    */
+
+    speak(
+        "I don't know a website named " +
+        target +
+        "."
+    );
 }
 
 
 /* =========================================================
    OPEN WEBSITE
-   ========================================================= */
+========================================================= */
 
-function openWebsite(url) {
+function openWebsite(
+    url,
+    name
+) {
 
     if (
-        !url ||
-        url.includes("YOUR-JOURNEY-TRACKER")
+        !document.getElementById(
+            "openAbility"
+        ).checked
     ) {
 
         speak(
-            "That link has not been set yet."
+            "Opening websites is turned off."
         );
 
         return;
     }
 
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
 
+    const newWindow =
+        window.open(
+            url,
+            "_blank"
+        );
+
+
+    if (newWindow) {
+
+        speak(
+            "Opening " +
+            name +
+            "."
+        );
+
+    }
+
+    else {
+
+        speak(
+            "Chrome blocked the new tab. You may need to allow popups for Travirt."
+        );
+    }
+}
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+function weatherSearch(
+    command
+) {
+
+    /*
+       Weather is opened as a Google weather search.
+       This keeps Travirt from pretending it has a
+       live weather sensor.
+    */
+
+    let query =
+        "weather";
+
+    if (
+        command.includes(
+            "temperature"
+        )
+    ) {
+
+        query =
+            "temperature outside";
+
+    }
+
+
+    searchWeb(
+        query
+    );
 }
 
 
 /* =========================================================
    SCHOOL MODE
-   ========================================================= */
+========================================================= */
 
 function schoolMode() {
 
-    setMode("School");
-
-    speak("Activating School Mode.");
-
-    /*
-       These may be blocked by Chrome's popup
-       protection if several tabs open at once.
-    */
-
-    openWebsite(LINKS.journey);
-
-    setTimeout(() => {
-
-        openWebsite(LINKS.khan);
-
-    }, 300);
-
-    setTimeout(() => {
-
-        openWebsite(LINKS.youtubeMusic);
-
-    }, 600);
-
-    setTimeout(() => {
-
-        openWebsite(LINKS.googleDocs);
-
-    }, 900);
-
-}
-
-
-/* =========================================================
-   VOLUME
-   ========================================================= */
-
-function changeVolume(amount) {
-
-    const slider =
-        document.getElementById("volume");
-
-    let value =
-        parseFloat(slider.value);
-
-    value += amount;
-
-    value =
-        Math.max(
-            0,
-            Math.min(1, value)
-        );
-
-    slider.value = value;
-
-    localStorage.setItem(
-        "travisVolume",
-        value
-    );
-
     speak(
-        value > 0.5
-            ? "Volume increased."
-            : "Volume decreased."
+        "School Mode activated. Opening your school tools."
     );
 
-}
 
-
-/* =========================================================
-   SPEECH RATE
-   ========================================================= */
-
-function changeRate(amount) {
-
-    const slider =
-        document.getElementById("rate");
-
-    let value =
-        parseFloat(slider.value);
-
-    value += amount;
-
-    value =
-        Math.max(
-            0.5,
-            Math.min(2, value)
-        );
-
-    slider.value = value;
-
-    localStorage.setItem(
-        "travisRate",
-        value
+    openWebsite(
+        LINKS.journey,
+        "Journey Tracker"
     );
 
-    speak(
-        amount > 0
-            ? "I will speak faster."
-            : "I will speak slower."
+
+    setTimeout(
+        () => {
+
+            openWebsite(
+                LINKS.khan,
+                "Khan Academy"
+            );
+
+        },
+        700
     );
 
-}
+
+    setTimeout(
+        () => {
+
+            openWebsite(
+                LINKS.youtubeMusic,
+                "YouTube Music"
+            );
+
+        },
+        1400
+    );
 
 
-/* =========================================================
-   TYPED COMMAND
-   ========================================================= */
+    setTimeout(
+        () => {
 
-function runTypedCommand() {
+            openWebsite(
+                LINKS.googleDocs,
+                "Google Docs"
+            );
 
-    const input =
-        document.getElementById("commandInput");
-
-    const command =
-        input.value.trim();
-
-    if (!command) {
-
-        return;
-    }
-
-    input.value = "";
-
-    /*
-       Typed commands don't need the wake word.
-    */
-
-    runCommand(command);
-
-}
-
-
-/* =========================================================
-   ASK TRAVIS
-   ========================================================= */
-
-function askTravis() {
-
-    const input =
-        document.getElementById("askInput");
-
-    const question =
-        input.value.trim();
-
-    if (!question) {
-
-        return;
-    }
-
-    input.value = "";
-
-    document.getElementById("answerArea").textContent =
-        "Searching for an answer...";
-
-    addHistory("Ask: " + question);
-
-    /*
-       This version uses Google search because it
-       does not require an API key or paid AI service.
-    */
-
-    speak("Let me look that up.");
-
-    const url =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(question);
-
-    openWebsite(url);
-
-    document.getElementById("answerArea").textContent =
-        "I opened a web search for: " + question;
-
+        },
+        2100
+    );
 }
 
 
 /* =========================================================
    CUSTOM COMMANDS
-   ========================================================= */
+========================================================= */
 
-function addCustomCommand() {
+function saveCustomCommand() {
 
-    let phrase =
-        document.getElementById("customPhrase")
-            .value
-            .trim();
+    const nameInput =
+        document.getElementById(
+            "customName"
+        );
+
+    const urlInput =
+        document.getElementById(
+            "customURL"
+        );
+
+
+    let name =
+        nameInput.value
+            .trim()
+            .toLowerCase();
+
 
     let url =
-        document.getElementById("customUrl")
-            .value
+        urlInput.value
             .trim();
 
 
-    if (!phrase || !url) {
+    if (!name || !url) {
 
         alert(
-            "Please enter both a command and a link."
+            "Enter both a command name and a link."
         );
 
         return;
     }
 
 
-    /*
-       Automatically add https:// if the user
-       forgot it.
-    */
-
     if (
-        !url.startsWith("http://") &&
-        !url.startsWith("https://")
+        !/^https?:\/\//i.test(
+            url
+        )
     ) {
 
-        url = "https://" + url;
-
-    }
-
-
-    customCommands.push({
-
-        phrase: phrase,
-
-        url: url
-
-    });
-
-
-    localStorage.setItem(
-        "travisCustomCommands",
-        JSON.stringify(customCommands)
-    );
-
-
-    document.getElementById("customPhrase").value = "";
-
-    document.getElementById("customUrl").value = "";
-
-
-    renderCustomCommands();
-
-    speak(
-        "Custom command added."
-    );
-
-}
-
-
-function renderCustomCommands() {
-
-    const box =
-        document.getElementById("customCommandsList");
-
-    box.innerHTML = "";
-
-
-    if (customCommands.length === 0) {
-
-        box.innerHTML =
-            '<p class="small">No custom commands yet.</p>';
+        alert(
+            "The link needs to start with http:// or https://"
+        );
 
         return;
     }
 
 
-    customCommands.forEach(
-        (item, index) => {
+    customCommands[name] =
+        url;
 
-            const div =
-                document.createElement("div");
-
-            div.className =
-                "custom-command";
-
-            div.innerHTML = `
-                <strong>${escapeHTML(item.phrase)}</strong>
-                <br>
-                <span class="small">${escapeHTML(item.url)}</span>
-                <br><br>
-                <button onclick="deleteCustomCommand(${index})">
-                    🗑️ Delete
-                </button>
-            `;
-
-            box.appendChild(div);
-
-        }
-    );
-
-}
-
-
-function deleteCustomCommand(index) {
-
-    customCommands.splice(index, 1);
 
     localStorage.setItem(
         "travisCustomCommands",
-        JSON.stringify(customCommands)
+        JSON.stringify(
+            customCommands
+        )
     );
+
+
+    nameInput.value = "";
+
+    urlInput.value = "";
+
 
     renderCustomCommands();
 
-}
 
-
-function escapeHTML(text) {
-
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+    speak(
+        "Custom command " +
+        name +
+        " saved."
+    );
 }
 
 
 /* =========================================================
+   RUN CUSTOM COMMAND
+========================================================= */
+
+function runCustomCommand(
+    target
+) {
+
+    const normalized =
+        target
+            .toLowerCase()
+            .trim();
+
+
+    /*
+       Exact match.
+    */
+
+    if (
+        customCommands[
+            normalized
+        ]
+    ) {
+
+        openWebsite(
+            customCommands[
+                normalized
+            ],
+            normalized
+        );
+
+        return true;
+    }
+
+
+    /*
+       Allow:
+       "go to my journey tracker"
+       and similar phrases.
+    */
+
+    const keys =
+        Object.keys(
+            customCommands
+        );
+
+
+    for (
+        const key
+        of keys
+    ) {
+
+        if (
+            normalized === key
+            ||
+            normalized.includes(
+                key
+            )
+        ) {
+
+            openWebsite(
+                customCommands[key],
+                key
+            );
+
+            return true;
+        }
+    }
+
+
+    return false;
+}
+
+
+/* =========================================================
+   DISPLAY CUSTOM COMMANDS
+========================================================= */
+
+function renderCustomCommands() {
+
+    const list =
+        document.getElementById(
+            "customList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const keys =
+        Object.keys(
+            customCommands
+        );
+
+
+    if (
+        keys.length === 0
+    ) {
+
+        list.innerHTML =
+            "<p class='small'>No custom commands yet.</p>";
+
+        return;
+    }
+
+
+    keys.forEach(
+        key => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.style.padding =
+                "8px";
+
+
+            div.innerHTML =
+                "🔗 <b>" +
+                escapeHTML(key) +
+                "</b> → " +
+                escapeHTML(
+                    customCommands[key]
+                ) +
+                " ";
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.textContent =
+                "Delete";
+
+
+            button.onclick =
+                () => {
+
+                    delete customCommands[
+                        key
+                    ];
+
+
+                    localStorage.setItem(
+                        "travisCustomCommands",
+                        JSON.stringify(
+                            customCommands
+                        )
+                    );
+
+
+                    renderCustomCommands();
+                };
+
+
+            div.appendChild(
+                button
+            );
+
+
+            list.appendChild(
+                div
+            );
+        }
+    );
+}
+
+
+renderCustomCommands();
+
+
+/* =========================================================
    HISTORY
-   ========================================================= */
+========================================================= */
 
-function addHistory(command) {
+function addHistory(
+    text
+) {
 
-    history.unshift({
+    history.unshift(
+        {
+            text:
+                text,
 
-        command: command,
+            time:
+                new Date()
+                    .toLocaleTimeString()
+        }
+    );
 
-        time: new Date().toLocaleTimeString()
 
-    });
+    if (
+        history.length > 50
+    ) {
 
-
-    if (history.length > 50) {
-
-        history =
-            history.slice(0, 50);
-
+        history.pop();
     }
 
 
     localStorage.setItem(
         "travisHistory",
-        JSON.stringify(history)
+        JSON.stringify(
+            history
+        )
     );
 
 
     renderHistory();
-
 }
 
 
 function renderHistory() {
 
-    historyBox.innerHTML = "";
+    historyEl.innerHTML = "";
 
 
-    if (history.length === 0) {
+    if (
+        history.length === 0
+    ) {
 
-        historyBox.innerHTML =
-            '<div class="history-item">No commands yet.</div>';
+        historyEl.innerHTML =
+            "<div>No commands yet.</div>";
 
         return;
     }
 
 
-    history.forEach(item => {
+    history.forEach(
+        item => {
 
-        const div =
-            document.createElement("div");
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        div.className =
-            "history-item";
 
-        div.textContent =
-            item.time +
-            " — " +
-            item.command;
+            div.textContent =
+                item.time +
+                " — " +
+                item.text;
 
-        historyBox.appendChild(div);
 
-    });
-
+            historyEl.appendChild(
+                div
+            );
+        }
+    );
 }
 
+
+renderHistory();
+
+
+/* =========================================================
+   CLEAR HISTORY
+========================================================= */
 
 function clearHistory() {
 
     history = [];
 
+
     localStorage.removeItem(
         "travisHistory"
     );
 
+
     renderHistory();
 
-    speak("History cleared.");
 
+    speak(
+        "Command history cleared."
+    );
 }
 
 
 /* =========================================================
-   KEEP CONTINUOUS LISTENING AFTER SPEECH
-   ========================================================= */
+   PANELS
+========================================================= */
 
-/*
-   When Travis finishes talking, the recognition
-   system will start listening again.
+function togglePanel(
+    id
+) {
 
-   This is what makes the conversation feel like:
+    const panel =
+        document.getElementById(
+            id
+        );
 
-   You: "Travis, what time is it?"
-   Travis: "It is 10 PM."
-   Travis: LISTENS AGAIN
-   You: "Travis, search Minecraft."
-   Travis: searches
-   Travis: LISTENS AGAIN
 
-   It continues until Stop is clicked.
-*/
+    panel.classList.toggle(
+        "hidden"
+    );
+}
 
+
+/* =========================================================
+   SIMPLE MATH
+========================================================= */
+
+function extractMath(
+    text
+) {
+
+    let math =
+        text
+            .replace(
+                "calculate",
+                ""
+            )
+            .replace(
+                "what is",
+                ""
+            )
+            .trim();
+
+
+    /*
+       Only allow basic math characters.
+    */
+
+    if (
+        !/^[0-9+\-*/().%\s]+$/.test(
+            math
+        )
+    ) {
+
+        return null;
+    }
+
+
+    return math;
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function capitalizeWords(
+    text
+) {
+
+    return text
+        .split(" ")
+        .map(
+            word =>
+                word.charAt(0)
+                .toUpperCase()
+                +
+                word.slice(1)
+        )
+        .join(" ");
+}
+
+
+function escapeRegExp(
+    text
+) {
+
+    return text.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&"
+    );
+}
+
+
+function escapeHTML(
+    text
+) {
+
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        if (!SpeechRecognition) {
+
+            statusEl.textContent =
+                "❌ VOICE NOT SUPPORTED";
+
+            heardEl.textContent =
+                "Try opening Travirt in Chrome.";
+        }
+
+    }
+);
 
 </script>
 
