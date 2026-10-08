@@ -15,423 +15,1436 @@ body {
     min-height: 100vh;
     font-family: Arial, sans-serif;
     background:
-        radial-gradient(circle at center, #182d55 0%, #071020 45%, #02050b 100%);
+        radial-gradient(circle at 50% 20%, #123d70 0%, #061326 35%, #020711 75%);
     color: white;
-    overflow-x: hidden;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 50px 20px;
+header {
     text-align: center;
-}
-
-.subtitle {
-    color: #8eaeff;
-    letter-spacing: 5px;
-    font-size: 14px;
+    padding: 30px 15px 10px;
 }
 
 h1 {
-    font-size: 64px;
-    letter-spacing: 10px;
-    margin: 10px 0;
+    margin: 0;
+    font-size: 58px;
+    letter-spacing: 8px;
+    color: #8bdcff;
+    text-shadow:
+        0 0 10px #00aaff,
+        0 0 25px #0088ff,
+        0 0 45px #0066ff;
 }
 
-#orb {
+.subtitle {
+    color: #8ba8c7;
+    margin-top: 8px;
+}
+
+.container {
+    width: min(1000px, 94%);
+    margin: auto;
+}
+
+.orb {
     width: 180px;
     height: 180px;
-    margin: 45px auto 30px;
+    margin: 30px auto;
     border-radius: 50%;
     background:
-        radial-gradient(circle at 35% 30%,
-        white 0%,
-        #9ec5ff 8%,
-        #367cff 35%,
-        #123078 65%,
-        #020714 100%);
+        radial-gradient(circle at 35% 30%, white, #8be9ff 8%, #168bff 30%, #092b76 62%, #020814 75%);
     box-shadow:
-        0 0 30px #448aff,
-        0 0 70px #2467ff,
-        0 0 130px #1645b5;
-    transition: 0.3s;
-}
-
-#orb.listening {
-    animation: pulse 1s infinite alternate;
+        0 0 20px #00aaff,
+        0 0 50px #0088ff,
+        0 0 100px #0055ff;
+    animation: pulse 2.5s infinite;
 }
 
 @keyframes pulse {
-    from {
+    0%,100% {
         transform: scale(1);
     }
-
-    to {
-        transform: scale(1.12);
+    50% {
+        transform: scale(1.07);
     }
 }
 
-#status {
-    font-size: 20px;
-    color: #b9cbff;
-    margin: 20px;
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 button {
-    background: #2467ff;
+    border: 1px solid #268cff;
+    background: #071a35;
     color: white;
-    border: none;
-    padding: 15px 25px;
-    margin: 6px;
+    padding: 12px 18px;
     border-radius: 10px;
-    font-size: 17px;
     cursor: pointer;
+    font-size: 15px;
+    transition: .2s;
 }
 
 button:hover {
-    background: #4785ff;
+    background: #0d3260;
+    box-shadow: 0 0 15px #0077ff;
 }
 
-#output {
+button.active {
+    background: #0758a8;
+    box-shadow: 0 0 18px #008cff;
+}
+
+.panel {
     margin-top: 25px;
+    background: rgba(3, 14, 30, .85);
+    border: 1px solid #175a96;
+    border-radius: 15px;
     padding: 20px;
-    min-height: 80px;
-    border-radius: 15px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    font-size: 20px;
+    box-shadow: 0 0 25px rgba(0,100,255,.2);
 }
 
-.commands {
-    margin-top: 45px;
-    padding: 25px;
-    text-align: left;
-    border-radius: 15px;
-    background: rgba(0,0,0,0.25);
+.panel h2 {
+    margin-top: 0;
+    color: #82d9ff;
 }
 
-.commands h2 {
+.ability {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid #173453;
+}
+
+.ability:last-child {
+    border-bottom: none;
+}
+
+.ability input {
+    width: 20px;
+    height: 20px;
+}
+
+.ability-title {
+    font-weight: bold;
+}
+
+.ability-description {
+    color: #8fa8c0;
+    font-size: 13px;
+}
+
+.status {
+    margin-top: 20px;
+    background: #020b18;
+    border: 1px solid #16416c;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 60px;
+}
+
+.history {
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid #173453;
+    color: #b9d8f2;
+}
+
+.command-box {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.command-box input {
+    flex: 1;
+    background: #020b18;
+    color: white;
+    border: 1px solid #225987;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.warning {
+    color: #ffc96b;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.success {
+    color: #7dffb2;
+}
+
+.small {
+    font-size: 13px;
+    color: #8fa8c0;
+}
+
+footer {
     text-align: center;
-}
-
-.commands p {
-    margin: 10px;
-    color: #c8d6ff;
+    padding: 30px;
+    color: #59738d;
 }
 </style>
 </head>
 
 <body>
 
+<header>
+    <h1>TRAVIRT</h1>
+    <div class="subtitle">Personal Voice Assistant • Web Edition</div>
+</header>
+
 <div class="container">
 
-    <div class="subtitle">
-        PERSONAL DIGITAL ASSISTANT
+    <div class="orb" id="orb"></div>
+
+    <div class="controls">
+        <button id="startBtn">🎤 Talk to Travirt</button>
+        <button id="stopBtn">⏹ Stop</button>
+        <button id="settingsBtn">⚙️ Abilities</button>
+        <button id="clearBtn">🗑️ Clear History</button>
     </div>
 
-    <h1>TRAVIRT</h1>
+    <div class="panel">
+        <h2>🧠 Travirt Status</h2>
 
-    <div id="orb"></div>
+        <div class="status" id="status">
+            Travirt is ready.
+        </div>
 
-    <div id="status">
-        Travirt is ready.
+        <div class="command-box">
+            <input
+                id="commandInput"
+                type="text"
+                placeholder="Type a command..."
+            >
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
-    <button onclick="startListening()">
-        🎤 Talk to Travirt
-    </button>
+    <div class="panel" id="abilitiesPanel">
 
-    <button onclick="stopListening()">
-        ⏹ Stop
-    </button>
+        <h2>⚙️ Travirt Abilities</h2>
 
-    <div id="output">
-        Say a command...
+        <div class="ability">
+            <input type="checkbox" id="voice" checked>
+            <div>
+                <div class="ability-title">🎤 Voice Commands</div>
+                <div class="ability-description">
+                    Listen for spoken commands.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="search" checked>
+            <div>
+                <div class="ability-title">🔎 Web Search</div>
+                <div class="ability-description">
+                    Search Google using only the requested search phrase.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="newTabs" checked>
+            <div>
+                <div class="ability-title">➕ Open New Tabs</div>
+                <div class="ability-description">
+                    Open searches and websites in new browser tabs.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="websites" checked>
+            <div>
+                <div class="ability-title">🌐 Open Websites</div>
+                <div class="ability-description">
+                    Open YouTube, Google, Drive, and other websites.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="scroll" checked>
+            <div>
+                <div class="ability-title">📜 Scroll</div>
+                <div class="ability-description">
+                    Scroll the current Travirt webpage.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="read" checked>
+            <div>
+                <div class="ability-title">📖 Read Webpage Content</div>
+                <div class="ability-description">
+                    Read text that Travirt can access on the current page.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="identify" checked>
+            <div>
+                <div class="ability-title">👆 Identify Webpage Elements</div>
+                <div class="ability-description">
+                    Find headings, buttons, links, and text fields on the current page.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="click" checked>
+            <div>
+                <div class="ability-title">🖱️ Click Buttons</div>
+                <div class="ability-description">
+                    Click matching buttons or links on the current page.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="type" checked>
+            <div>
+                <div class="ability-title">⌨️ Type Into Boxes</div>
+                <div class="ability-description">
+                    Type text into an available text field on the current page.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="speak" checked>
+            <div>
+                <div class="ability-title">🔊 Speak Responses</div>
+                <div class="ability-description">
+                    Travirt speaks its responses.
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="wake" checked>
+            <div>
+                <div class="ability-title">🤖 Wake Word</div>
+                <div class="ability-description">
+                    Recognize commands beginning with "Travirt".
+                </div>
+            </div>
+        </div>
+
+        <div class="ability">
+            <input type="checkbox" id="browserControl" disabled>
+            <div>
+                <div class="ability-title">🔀 Switch/Duplicate Chrome Tabs</div>
+                <div class="ability-description">
+                    Requires an approved browser integration. Not available to a normal webpage.
+                </div>
+            </div>
+        </div>
+
+        <div class="warning">
+            ⚠️ Website mode cannot control arbitrary Chrome tabs or websites.
+            These controls work with content that Travirt's webpage itself can access.
+        </div>
+
     </div>
 
-    <div class="commands">
+    <div class="panel">
 
-        <h2>Try saying:</h2>
+        <h2>📜 Command History</h2>
 
-        <p>🎤 “Travirt, search Journey Tracker”</p>
-        <p>🌐 “Travirt, open YouTube”</p>
-        <p>📜 “Travirt, scroll down”</p>
-        <p>⬆️ “Travirt, scroll up”</p>
-        <p>⬇️ “Travirt, go to the bottom”</p>
-        <p>🔝 “Travirt, go to the top”</p>
-        <p>🕐 “Travirt, what time is it?”</p>
-        <p>❓ “Travirt, help”</p>
+        <div class="history" id="history">
+            <div class="small">
+                No commands yet.
+            </div>
+        </div>
 
     </div>
 
 </div>
 
+<footer>
+    TRAVIRT • Web Edition
+</footer>
+
 <script>
 
-let recognition;
-
-const statusText = document.getElementById("status");
-const output = document.getElementById("output");
+const statusBox = document.getElementById("status");
+const historyBox = document.getElementById("history");
+const commandInput = document.getElementById("commandInput");
 const orb = document.getElementById("orb");
 
+let recognition = null;
+let listening = false;
 
-if ("webkitSpeechRecognition" in window) {
-
-    recognition = new webkitSpeechRecognition();
-
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-
-
-    recognition.onstart = function() {
-
-        statusText.innerText = "🎤 Listening...";
-
-        orb.classList.add("listening");
-
-    };
-
-
-    recognition.onend = function() {
-
-        statusText.innerText = "Travirt is ready.";
-
-        orb.classList.remove("listening");
-
-    };
+const abilityIds = [
+    "voice",
+    "search",
+    "newTabs",
+    "websites",
+    "scroll",
+    "read",
+    "identify",
+    "click",
+    "type",
+    "speak",
+    "wake"
+];
 
 
-    recognition.onerror = function() {
+// ===============================
+// SETTINGS
+// ===============================
 
-        statusText.innerText =
-            "I couldn't hear that.";
+function loadSettings() {
 
-        orb.classList.remove("listening");
+    abilityIds.forEach(id => {
 
-    };
+        const saved = localStorage.getItem("travirt_" + id);
 
+        if (saved !== null) {
+            document.getElementById(id).checked = saved === "true";
+        }
 
-    recognition.onresult = function(event) {
-
-        const command =
-            event.results[0][0].transcript.toLowerCase();
-
-        output.innerText =
-            "You said: " + command;
-
-        processCommand(command);
-
-    };
+    });
 
 }
 
+function saveSettings() {
 
-function startListening() {
+    abilityIds.forEach(id => {
 
-    if (recognition) {
+        const checked = document.getElementById(id).checked;
 
-        recognition.start();
-
-    } else {
-
-        speak(
-            "Voice recognition is not supported in this browser."
+        localStorage.setItem(
+            "travirt_" + id,
+            checked
         );
 
-    }
+    });
+
+}
+
+abilityIds.forEach(id => {
+
+    document.getElementById(id).addEventListener(
+        "change",
+        saveSettings
+    );
+
+});
+
+loadSettings();
+
+
+// ===============================
+// STATUS
+// ===============================
+
+function setStatus(message, success = false) {
+
+    statusBox.innerHTML =
+        success
+        ? `<span class="success">${message}</span>`
+        : message;
 
 }
 
 
-function stopListening() {
+// ===============================
+// HISTORY
+// ===============================
 
-    if (recognition) {
+function addHistory(command, response) {
 
-        recognition.stop();
-
+    if (
+        historyBox.children.length === 1 &&
+        historyBox.children[0].classList.contains("small")
+    ) {
+        historyBox.innerHTML = "";
     }
+
+    const item = document.createElement("div");
+
+    item.className = "history-item";
+
+    item.innerHTML =
+        `<b>You:</b> ${escapeHTML(command)}
+        <br>
+        <b>Travirt:</b> ${escapeHTML(response)}`;
+
+    historyBox.prepend(item);
 
 }
 
+
+// ===============================
+// SECURITY
+// ===============================
+
+function escapeHTML(text) {
+
+    return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+// ===============================
+// SPEAK
+// ===============================
 
 function speak(text) {
 
-    output.innerText = text;
+    if (!document.getElementById("speak").checked) {
+        return;
+    }
 
-    const speech =
+    speechSynthesis.cancel();
+
+    const utterance =
         new SpeechSynthesisUtterance(text);
 
-    speech.rate = 1;
-    speech.pitch = 1;
+    utterance.rate = 1;
+    utterance.pitch = 1;
 
-    window.speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+}
 
-    window.speechSynthesis.speak(speech);
+
+// ===============================
+// RESPOND
+// ===============================
+
+function respond(command, response) {
+
+    setStatus(response, true);
+
+    addHistory(command, response);
+
+    speak(response);
 
 }
 
 
-function processCommand(command) {
+// ===============================
+// SEARCH PHRASE CLEANER
+// ===============================
+
+function extractSearch(command) {
+
+    let text = command.trim();
+
+    // Remove wake word
+    text = text.replace(
+        /^hey\s+travirt[\s,:-]*/i,
+        ""
+    );
+
+    text = text.replace(
+        /^travirt[\s,:-]*/i,
+        ""
+    );
+
+    // Remove search phrases
+    text = text.replace(
+        /^(please\s+)?(can\s+you\s+)?(search|search\s+up|look\s+up|google|find)\s+/i,
+        ""
+    );
+
+    // Remove filler words
+    text = text.replace(
+        /^(for|up|on\s+google)\s+/i,
+        ""
+    );
+
+    return text.trim();
+
+}
 
 
-    /* SEARCH */
+// ===============================
+// OPEN NEW TAB
+// ===============================
 
-    if (command.includes("search")) {
+function openNewTab(url) {
 
-        let search =
-            command
-            .replace("travirt", "")
-            .replace("search", "")
-            .trim();
+    if (!document.getElementById("newTabs").checked) {
 
-        if (!search) {
+        respond(
+            "",
+            "Opening new tabs is disabled in Abilities."
+        );
 
-            speak(
-                "What would you like me to search for?"
+        return false;
+    }
+
+    const newWindow = window.open(
+        url,
+        "_blank"
+    );
+
+    if (!newWindow) {
+
+        respond(
+            "",
+            "Chrome blocked the new tab. Try using the button first or allow pop-ups for Travirt."
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+
+// ===============================
+// SEARCH
+// ===============================
+
+function searchWeb(command) {
+
+    if (!document.getElementById("search").checked) {
+
+        respond(
+            command,
+            "Web searching is disabled."
+        );
+
+        return;
+    }
+
+    const searchTerm =
+        extractSearch(command);
+
+    if (!searchTerm) {
+
+        respond(
+            command,
+            "I need to know what you want me to search for."
+        );
+
+        return;
+    }
+
+    const url =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(searchTerm);
+
+    if (openNewTab(url)) {
+
+        respond(
+            command,
+            `Searching for ${searchTerm}.`
+        );
+
+    }
+
+}
+
+
+// ===============================
+// OPEN WEBSITES
+// ===============================
+
+function openWebsite(command) {
+
+    if (!document.getElementById("websites").checked) {
+
+        respond(
+            command,
+            "Opening websites is disabled."
+        );
+
+        return;
+    }
+
+    let text = command
+        .replace(/^hey\s+travirt[\s,:-]*/i, "")
+        .replace(/^travirt[\s,:-]*/i, "")
+        .replace(/^please\s+/i, "")
+        .replace(/^open\s+/i, "")
+        .replace(/^go\s+to\s+/i, "")
+        .trim()
+        .toLowerCase();
+
+    const sites = {
+
+        "youtube":
+            "https://www.youtube.com",
+
+        "google":
+            "https://www.google.com",
+
+        "google drive":
+            "https://drive.google.com",
+
+        "drive":
+            "https://drive.google.com",
+
+        "gmail":
+            "https://mail.google.com",
+
+        "github":
+            "https://github.com",
+
+        "chatgpt":
+            "https://chatgpt.com"
+
+    };
+
+    if (sites[text]) {
+
+        if (openNewTab(sites[text])) {
+
+            respond(
+                command,
+                `Opening ${text}.`
             );
-
-            return;
 
         }
 
-        speak(
-            "Searching for " + search
+        return;
+    }
+
+    // If the user says a URL directly
+    if (
+        text.startsWith("http://") ||
+        text.startsWith("https://")
+    ) {
+
+        if (openNewTab(text)) {
+
+            respond(
+                command,
+                "Opening the website."
+            );
+
+        }
+
+        return;
+    }
+
+    respond(
+        command,
+        `I don't have that website saved yet.`
+    );
+
+}
+
+
+// ===============================
+// SCROLL
+// ===============================
+
+function handleScroll(command) {
+
+    if (!document.getElementById("scroll").checked) {
+
+        respond(
+            command,
+            "Scrolling is disabled."
         );
 
-        window.open(
-            "https://www.google.com/search?q=" +
-            encodeURIComponent(search),
-            "_blank"
-        );
-
         return;
-
     }
 
+    const text = command.toLowerCase();
 
-    /* YOUTUBE */
-
-    if (command.includes("open youtube")) {
-
-        speak("Opening YouTube.");
-
-        window.open(
-            "https://www.youtube.com/",
-            "_blank"
-        );
-
-        return;
-
-    }
-
-
-    /* SCROLL DOWN */
-
-    if (command.includes("scroll down")) {
-
-        window.scrollBy({
-            top: 700,
-            behavior: "smooth"
-        });
-
-        speak("Scrolling down.");
-
-        return;
-
-    }
-
-
-    /* SCROLL UP */
-
-    if (command.includes("scroll up")) {
-
-        window.scrollBy({
-            top: -700,
-            behavior: "smooth"
-        });
-
-        speak("Scrolling up.");
-
-        return;
-
-    }
-
-
-    /* BOTTOM */
-
-    if (command.includes("bottom")) {
+    if (
+        text.includes("bottom") ||
+        text.includes("go down all the way")
+    ) {
 
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: "smooth"
         });
 
-        speak("Going to the bottom.");
+        respond(
+            command,
+            "Going to the bottom."
+        );
 
         return;
-
     }
 
-
-    /* TOP */
-
-    if (command.includes("top")) {
+    if (
+        text.includes("top") ||
+        text.includes("go up all the way")
+    ) {
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
 
-        speak("Going to the top.");
-
-        return;
-
-    }
-
-
-    /* TIME */
-
-    if (command.includes("time")) {
-
-        const now = new Date();
-
-        const time =
-            now.toLocaleTimeString([], {
-                hour: "numeric",
-                minute: "2-digit"
-            });
-
-        speak(
-            "The time is " + time
+        respond(
+            command,
+            "Going to the top."
         );
 
         return;
-
     }
 
+    if (
+        text.includes("scroll down") ||
+        text.includes("scroll lower")
+    ) {
 
-    /* HELP */
+        window.scrollBy({
+            top: window.innerHeight * .75,
+            behavior: "smooth"
+        });
 
-    if (command.includes("help")) {
-
-        speak(
-            "You can ask me to search, open YouTube, scroll, go to the top, go to the bottom, or tell you the time."
+        respond(
+            command,
+            "Scrolling down."
         );
 
         return;
-
     }
 
+    if (
+        text.includes("scroll up") ||
+        text.includes("scroll higher")
+    ) {
 
-    /* UNKNOWN COMMAND */
+        window.scrollBy({
+            top: -window.innerHeight * .75,
+            behavior: "smooth"
+        });
 
-    speak(
-        "I heard you, but I don't know how to do that yet."
+        respond(
+            command,
+            "Scrolling up."
+        );
+
+        return;
+    }
+
+}
+
+
+// ===============================
+// IDENTIFY PAGE ELEMENTS
+// ===============================
+
+function identifyPage(command) {
+
+    if (!document.getElementById("identify").checked) {
+
+        respond(
+            command,
+            "Page identification is disabled."
+        );
+
+        return;
+    }
+
+    const headings =
+        [...document.querySelectorAll("h1,h2,h3")]
+        .map(x => x.innerText.trim())
+        .filter(Boolean)
+        .slice(0, 10);
+
+    const buttons =
+        [...document.querySelectorAll("button")]
+        .map(x => x.innerText.trim())
+        .filter(Boolean)
+        .slice(0, 15);
+
+    const links =
+        [...document.querySelectorAll("a")]
+        .map(x => x.innerText.trim())
+        .filter(Boolean)
+        .slice(0, 15);
+
+    const inputs =
+        [...document.querySelectorAll("input,textarea")]
+        .length;
+
+    let result =
+        `I found ${headings.length} headings, ` +
+        `${buttons.length} buttons, ` +
+        `${links.length} links, and ` +
+        `${inputs} text fields.`;
+
+    if (headings.length) {
+        result += " Headings include: " +
+            headings.join(", ") + ".";
+    }
+
+    respond(
+        command,
+        result
     );
 
 }
+
+
+// ===============================
+// READ PAGE
+// ===============================
+
+function readPage(command) {
+
+    if (!document.getElementById("read").checked) {
+
+        respond(
+            command,
+            "Reading pages is disabled."
+        );
+
+        return;
+    }
+
+    const text =
+        document.body.innerText
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (!text) {
+
+        respond(
+            command,
+            "I couldn't find readable text on this page."
+        );
+
+        return;
+    }
+
+    // Don't read an enormous page at once.
+    const shortened =
+        text.substring(0, 1800);
+
+    respond(
+        command,
+        shortened
+    );
+
+}
+
+
+// ===============================
+// CLICK BUTTON
+// ===============================
+
+function clickElement(command) {
+
+    if (!document.getElementById("click").checked) {
+
+        respond(
+            command,
+            "Clicking is disabled."
+        );
+
+        return;
+    }
+
+    let target =
+        command
+        .replace(/^hey\s+travirt[\s,:-]*/i, "")
+        .replace(/^travirt[\s,:-]*/i, "")
+        .replace(/^please\s+/i, "")
+        .replace(/^click\s+/i, "")
+        .replace(/^press\s+/i, "")
+        .trim()
+        .toLowerCase();
+
+    const elements = [
+        ...document.querySelectorAll("button"),
+        ...document.querySelectorAll("a"),
+        ...document.querySelectorAll("[role='button']")
+    ];
+
+    const match = elements.find(el => {
+
+        const text =
+            (el.innerText || el.textContent || "")
+            .trim()
+            .toLowerCase();
+
+        return text === target ||
+               text.includes(target);
+
+    });
+
+    if (!match) {
+
+        respond(
+            command,
+            `I couldn't find a button or link called ${target}.`
+        );
+
+        return;
+    }
+
+    match.click();
+
+    respond(
+        command,
+        `Clicked ${target}.`
+    );
+
+}
+
+
+// ===============================
+// TYPE INTO BOX
+// ===============================
+
+function typeIntoBox(command) {
+
+    if (!document.getElementById("type").checked) {
+
+        respond(
+            command,
+            "Typing is disabled."
+        );
+
+        return;
+    }
+
+    const match =
+        command.match(
+            /type\s+(.+?)\s+(?:into|in)\s+(?:the\s+)?(.+)/i
+        );
+
+    if (!match) {
+
+        respond(
+            command,
+            "Try saying: type hello into the search box."
+        );
+
+        return;
+    }
+
+    const textToType = match[1].trim();
+    const boxName = match[2].trim().toLowerCase();
+
+    const fields = [
+        ...document.querySelectorAll(
+            "input:not([type='checkbox']):not([type='radio']), textarea"
+        )
+    ];
+
+    const field =
+        fields.find(el => {
+
+            const label =
+                (
+                    el.placeholder ||
+                    el.name ||
+                    el.id ||
+                    ""
+                ).toLowerCase();
+
+            return label.includes(boxName);
+        }) || fields[0];
+
+    if (!field) {
+
+        respond(
+            command,
+            "I couldn't find a text box."
+        );
+
+        return;
+    }
+
+    field.focus();
+
+    field.value = textToType;
+
+    field.dispatchEvent(
+        new Event("input", {
+            bubbles: true
+        })
+    );
+
+    field.dispatchEvent(
+        new Event("change", {
+            bubbles: true
+        })
+    );
+
+    respond(
+        command,
+        `Typed ${textToType}.`
+    );
+
+}
+
+
+// ===============================
+// HELP
+// ===============================
+
+function help(command) {
+
+    const message =
+        "Try saying: search up Minecraft houses, " +
+        "open YouTube, scroll down, go to the bottom, " +
+        "read this to me, identify this page, " +
+        "click Talk to Travirt, or type hello into the command box.";
+
+    respond(
+        command,
+        message
+    );
+
+}
+
+
+// ===============================
+// COMMAND PROCESSOR
+// ===============================
+
+function processCommand(command) {
+
+    if (!command || !command.trim()) {
+        return;
+    }
+
+    command = command.trim();
+
+    const lower =
+        command.toLowerCase();
+
+    // Wake word check
+    if (
+        document.getElementById("wake").checked &&
+        !lower.startsWith("travirt") &&
+        !lower.startsWith("hey travirt")
+    ) {
+
+        // Typed commands are allowed without wake word.
+        if (!commandInput.matches(":focus")) {
+            return;
+        }
+    }
+
+    // Search
+    if (
+        lower.includes("search ") ||
+        lower.includes("search up ") ||
+        lower.includes("look up ") ||
+        lower.startsWith("google ")
+    ) {
+
+        searchWeb(command);
+        return;
+    }
+
+    // Websites
+    if (
+        lower.startsWith("open ") ||
+        lower.startsWith("go to ")
+    ) {
+
+        openWebsite(command);
+        return;
+    }
+
+    // Scroll
+    if (
+        lower.includes("scroll") ||
+        lower.includes("go to the top") ||
+        lower.includes("go to the bottom")
+    ) {
+
+        handleScroll(command);
+        return;
+    }
+
+    // Read
+    if (
+        lower.includes("read this") ||
+        lower.includes("read the page") ||
+        lower.includes("read this to me")
+    ) {
+
+        readPage(command);
+        return;
+    }
+
+    // Identify
+    if (
+        lower.includes("identify") ||
+        lower.includes("what is on this page") ||
+        lower.includes("what's on this page")
+    ) {
+
+        identifyPage(command);
+        return;
+    }
+
+    // Click
+    if (
+        lower.startsWith("click ") ||
+        lower.startsWith("press ")
+    ) {
+
+        clickElement(command);
+        return;
+    }
+
+    // Type
+    if (
+        lower.startsWith("type ")
+    ) {
+
+        typeIntoBox(command);
+        return;
+    }
+
+    // Help
+    if (
+        lower.includes("help") ||
+        lower.includes("what can you do")
+    ) {
+
+        help(command);
+        return;
+    }
+
+    // Time
+    if (
+        lower.includes("what time") ||
+        lower === "time"
+    ) {
+
+        const now = new Date();
+
+        respond(
+            command,
+            `The time is ${now.toLocaleTimeString()}.`
+        );
+
+        return;
+    }
+
+    respond(
+        command,
+        "I heard you, but I don't know that command yet."
+    );
+}
+
+
+// ===============================
+// VOICE RECOGNITION
+// ===============================
+
+function setupSpeechRecognition() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        setStatus(
+            "Voice recognition isn't supported by this browser. You can still type commands."
+        );
+
+        return;
+    }
+
+    recognition =
+        new SpeechRecognition();
+
+    recognition.continuous = false;
+
+    recognition.interimResults = false;
+
+    recognition.lang = "en-US";
+
+    recognition.onstart = () => {
+
+        listening = true;
+
+        orb.style.animationDuration = "0.8s";
+
+        setStatus(
+            "🎤 Listening..."
+        );
+
+    };
+
+    recognition.onresult = event => {
+
+        const transcript =
+            event.results[0][0].transcript;
+
+        commandInput.value =
+            transcript;
+
+        processCommand(transcript);
+
+    };
+
+    recognition.onerror = event => {
+
+        setStatus(
+            "Voice error: " + event.error
+        );
+
+        listening = false;
+
+    };
+
+    recognition.onend = () => {
+
+        listening = false;
+
+        orb.style.animationDuration = "2.5s";
+
+    };
+
+}
+
+setupSpeechRecognition();
+
+
+// ===============================
+// BUTTONS
+// ===============================
+
+document.getElementById("startBtn")
+.addEventListener("click", () => {
+
+    if (!document.getElementById("voice").checked) {
+
+        setStatus(
+            "Voice commands are disabled in Abilities."
+        );
+
+        return;
+    }
+
+    if (!recognition) {
+
+        setStatus(
+            "Voice recognition is not supported here."
+        );
+
+        return;
+    }
+
+    try {
+
+        recognition.start();
+
+    } catch(error) {
+
+        console.log(error);
+
+    }
+
+});
+
+
+document.getElementById("stopBtn")
+.addEventListener("click", () => {
+
+    if (recognition) {
+        recognition.stop();
+    }
+
+    speechSynthesis.cancel();
+
+    listening = false;
+
+    orb.style.animationDuration = "2.5s";
+
+    setStatus(
+        "Travirt stopped."
+    );
+
+});
+
+
+document.getElementById("sendBtn")
+.addEventListener("click", () => {
+
+    const command =
+        commandInput.value.trim();
+
+    if (!command) {
+        return;
+    }
+
+    processCommand(command);
+
+    commandInput.value = "";
+
+});
+
+
+commandInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            document.getElementById("sendBtn").click();
+
+        }
+
+    }
+);
+
+
+document.getElementById("settingsBtn")
+.addEventListener("click", () => {
+
+    document.getElementById("abilitiesPanel")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
+
+
+document.getElementById("clearBtn")
+.addEventListener("click", () => {
+
+    historyBox.innerHTML =
+        `<div class="small">
+            No commands yet.
+        </div>`;
+
+    setStatus(
+        "Command history cleared."
+    );
+
+});
+
+
+// ===============================
+// STARTUP
+// ===============================
+
+setStatus(
+    "Travirt 1.1 is ready. Try saying: Travirt, search up Minecraft houses."
+);
 
 </script>
 
